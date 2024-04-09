@@ -8,4 +8,129 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="SharpZipLib" Version="1.4.2" />
+    <PackageReference Include="System.ServiceModel.Http" Version="8.0.0" />
+    <PackageReference Include="UpdateServices.ClientServerSync" Version="1.6.1" />
+    <PackageReference Include="UpdateServices.ServerServerSync" Version="2.5.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CommandLine">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\CommandLine.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="MathNet.Numerics">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\MathNet.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="microsoft-update-webservices">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\microsoft-update-webservices.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.JsonPatch">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Microsoft.AspNetCore.JsonPatch.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Mvc.Razor.Extensions">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Razor.Language">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Microsoft.AspNetCore.Razor.Language.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Server.Kestrel.Https">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Microsoft.AspNetCore.Server.Kestrel.Https.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.Core">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Storage.Blob">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Microsoft.Azure.Storage.Blob.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Storage.Common">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Microsoft.Azure.Storage.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Microsoft.CodeAnalysis.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.Razor">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Microsoft.CodeAnalysis.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.DotNet.PlatformAbstractions">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Microsoft.DotNet.PlatformAbstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyModel">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Microsoft.Extensions.DependencyModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.SystemEvents">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Microsoft.Win32.SystemEvents.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json.Bson">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Newtonsoft.Json.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="package-graph-endpoints-microsoft-update">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\package-graph-endpoints-microsoft-update.dll</HintPath>
+    </Reference>
+    <Reference Include="package-graph-microsoft-update">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\package-graph-microsoft-update.dll</HintPath>
+    </Reference>
+    <Reference Include="package-graph-microsoftupdate-source">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\package-graph-microsoftupdate-source.dll</HintPath>
+    </Reference>
+    <Reference Include="server-server-sync-lib">
+      <HintPath>..\..\..\..\..\..\.nuget\packages\updateservices.serverserversync\2.5.6\lib\netcoreapp2.1\server-server-sync-lib.dll</HintPath>
+    </Reference>
+    <Reference Include="SoapCore">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\SoapCore.dll</HintPath>
+    </Reference>
+    <Reference Include="System.CodeDom">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\System.CodeDom.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing.Common">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\System.Drawing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Private.ServiceModel">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\System.Private.ServiceModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Permissions">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\System.Security.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\System.ServiceModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Duplex">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\System.ServiceModel.Duplex.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Http">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\System.ServiceModel.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.NetTcp">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\System.ServiceModel.NetTcp.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Primitives">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\System.ServiceModel.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Security">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\System.ServiceModel.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Extensions">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\System.Windows.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="upsync">
+      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\upsync.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
