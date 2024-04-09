@@ -1,0 +1,8 @@
+# Console App Ignores
+bin/
+obj/
+*.user
+*.suo
+publishProfiles/
+log*.txt
+.vs/
