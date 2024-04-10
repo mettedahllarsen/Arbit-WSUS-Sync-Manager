@@ -6,3 +6,4 @@ obj/
 publishProfiles/
 log*.txt
 .vs/
+.vscode/
