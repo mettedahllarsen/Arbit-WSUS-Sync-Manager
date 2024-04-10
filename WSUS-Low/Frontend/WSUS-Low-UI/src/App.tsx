@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import Header from './Components/Header/Header';
 
 const App = () => {
 
@@ -8,7 +9,7 @@ const App = () => {
 
   return (
     <>
-      {/* Header */}
+      <Header />
 
       {/* Pages */}
       <p>This is WSUS-Low</p>
