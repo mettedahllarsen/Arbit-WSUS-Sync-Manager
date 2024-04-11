@@ -2,13 +2,14 @@
 using System.Threading;
 using Microsoft.PackageGraph.MicrosoftUpdate.Metadata;
 using Microsoft.PackageGraph.MicrosoftUpdate.Source;
+using Microsoft.PackageGraph.ObjectModel;
 using Microsoft.PackageGraph.Storage.Local;
 using System.Linq;
 using System.Diagnostics;
 
 class Program
 {
-    static void Main(string[] args)
+    static void Main(string[] _)
     {
         FetchUpdates();
     }
@@ -47,6 +48,20 @@ class Program
         Console.WriteLine($"Finished fetching all the updates. Total updates fetched: {pendingPackages.Count - skippedUpdates}");
         Console.WriteLine($"Total updates skipped: {skippedUpdates}");
 
+        var updatesFilter = new UpstreamSourceFilter();
+
+        var windowsProduct = packageStore.OfType<ProductCategory>().First(category => category.Title.Equals("Windows"));
+
+        var windows11Product = packageStore.OfType<ProductCategory>().First(category => category.Title.Equals("Windows 11"));
+
+        updatesFilter.ProductsFilter.Add(windows11Product.Id.ID);
+
+        updatesFilter.ClassificationsFilter.AddRange(packageStore.OfType<ClassificationCategory>().Select(classification => classification.Id.ID));
+
+        var updatesSource = new UpstreamUpdatesSource(Endpoint.Default, updatesFilter);
+
+        updatesSource.CopyTo(packageStore, CancellationToken.None);
+        Console.WriteLine($"Copied {packageStore.GetPendingPackages().Count} new updates");
 
         void FindingCategoryAndClassification()
         {
