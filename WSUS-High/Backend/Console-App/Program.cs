@@ -29,7 +29,7 @@ static void CheckForFolderAndTarFile(string tarFolderPath, string tarFilePath)
 
 		if (File.Exists(tarFilePath))
 		{
-			Console.WriteLine("Den er der");
+			Console.WriteLine("Success: The folder and tar file both exist.");
 		}
 		else
 		{
