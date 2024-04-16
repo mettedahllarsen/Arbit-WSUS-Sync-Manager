@@ -1,0 +1,6 @@
+@WSUS_Low_Api_HostAddress = http://localhost:5262
+
+GET {{WSUS_Low_Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

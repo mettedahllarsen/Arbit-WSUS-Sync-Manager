@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console-App", "Console-App\Console-App.csproj", "{872A5072-B2F6-4843-B5E8-CDBCD1C2F61C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Console-App", "Console-App\Console-App.csproj", "{872A5072-B2F6-4843-B5E8-CDBCD1C2F61C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSUS-Low-Api", "WSUS-Low-Api\WSUS-Low-Api.csproj", "{907C5603-3FA4-482F-8EB0-43E7228A352D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{872A5072-B2F6-4843-B5E8-CDBCD1C2F61C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{872A5072-B2F6-4843-B5E8-CDBCD1C2F61C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{872A5072-B2F6-4843-B5E8-CDBCD1C2F61C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{907C5603-3FA4-482F-8EB0-43E7228A352D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{907C5603-3FA4-482F-8EB0-43E7228A352D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{907C5603-3FA4-482F-8EB0-43E7228A352D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{907C5603-3FA4-482F-8EB0-43E7228A352D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
