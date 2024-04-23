@@ -1,4 +1,5 @@
-﻿    using System;
+﻿using Microsoft.PackageGraph.MicrosoftUpdate.Metadata;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Console_App
 {
     public class UpdateData
     {
-        public Guid UpdateID { get; set; }
+        public MicrosoftUpdatePackageIdentity UpdateID { get; set; }
         public int RevisionNumber { get; set; }
         public string DefaultPropertiesLanguage { get; set; }
         public string UpdateType { get; set; }
