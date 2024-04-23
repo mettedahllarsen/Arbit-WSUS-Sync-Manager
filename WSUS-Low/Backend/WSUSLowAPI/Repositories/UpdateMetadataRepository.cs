@@ -13,8 +13,8 @@ namespace WSUSLowAPI.Repositories
             _data =
             [
                 new() {
-                    Id = nextId++,
-                    UpdateID = Guid.NewGuid(),
+                    MetadataId = nextId++,
+                    UpdateID = null,
                     RevisionNumber = 5,
                     DefaultPropertiesLanguage = "en-US",
                     UpdateType = "Security",
@@ -27,8 +27,8 @@ namespace WSUSLowAPI.Repositories
                 },
                 new()
                 {
-                    Id = nextId++,
-                    UpdateID = Guid.NewGuid(),
+                    MetadataId = nextId++,
+                    UpdateID = null,
                     RevisionNumber = 3,
                     DefaultPropertiesLanguage = "fr-FR",
                     UpdateType = "Feature",
@@ -45,6 +45,11 @@ namespace WSUSLowAPI.Repositories
         public List<UpdateMetadata> GetAll()
         {
             return new List<UpdateMetadata>(_data);
+        }
+
+        public string FetchToDb(string filter)
+        {
+            return "Not implemented";
         }
     }
 }

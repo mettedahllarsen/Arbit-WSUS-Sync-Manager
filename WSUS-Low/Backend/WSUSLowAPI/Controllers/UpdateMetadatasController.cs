@@ -10,8 +10,6 @@ namespace WSUSLowAPI.Controllers
     [ApiController]
     public class UpdateMetadatasController(IUpdateMetadataRepository repository) : ControllerBase
     {
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
         // GET: api/<UpdateMetadatasController>
         [HttpGet]
         public string Welcome()
@@ -22,12 +20,13 @@ namespace WSUSLowAPI.Controllers
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
         // GET: api/<UpdateMetadatasController>/fetch
-        [HttpGet("fetch")]
-        public string FetchMetadata()
+        [HttpPost("fetch/{filter}")]
+        public ActionResult<IEnumerable<string>> FetchMetadata(string filter)
         {
-            return "Successfully fetched metadata";
+            string resultmessage = repository.FetchToDb(filter);
+
+            return Ok(resultmessage);
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -37,7 +36,7 @@ namespace WSUSLowAPI.Controllers
         public ActionResult<IEnumerable<UpdateMetadata>> GetAll()
         {
             List<UpdateMetadata> result = repository.GetAll();
-            if (result.Count < 1)
+            if (result == null || result.Count < 1)
             {
                 return NoContent();
             }

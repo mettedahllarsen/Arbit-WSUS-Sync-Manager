@@ -15,7 +15,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-bool useSql = false;
+bool useSql = true;
 if (useSql)
 {
     var optionsbuilder = new DbContextOptionsBuilder<WSUSDbContext>();
