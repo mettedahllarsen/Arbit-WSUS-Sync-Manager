@@ -19,13 +19,13 @@ bool useSql = false;
 if (useSql)
 {
     var optionsbuilder = new DbContextOptionsBuilder<WSUSDbContext>();
-    optionsbuilder.UseSqlServer(builder.Configuration["ConnectionStrings:OliverConnection"]);
-    WSUSDbContext context = new WSUSDbContext(optionsbuilder.Options);
-    builder.Services.AddSingleton<IUpdateDataRepository>(new UpdateDataRepositoryDb(context));
+    optionsbuilder.UseSqlServer(builder.Configuration["ConnectionStrings:MikkelConnection"]);
+    WSUSDbContext context = new(optionsbuilder.Options);
+    builder.Services.AddSingleton<IUpdateMetadataRepository>(new UpdateMetadataRepositoryDb(context));
 }
 else
 {
-    builder.Services.AddSingleton<IUpdateDataRepository>(new UpdateDataRepository());
+    builder.Services.AddSingleton<IUpdateMetadataRepository>(new UpdateMetadataRepository());
 }
 
 builder.Services.AddControllers();

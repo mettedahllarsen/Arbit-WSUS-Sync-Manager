@@ -1,9 +1,11 @@
-﻿namespace WSUSLowAPI.Models
+﻿using Microsoft.PackageGraph.MicrosoftUpdate.Metadata;
+
+namespace WSUSLowAPI.Models
 {
-    public class UpdateData
+    public class UpdateMetadata
     {
-        public int Id { get; set; }
-        public Guid? UpdateID { get; set; }
+        public int? MetadataId { get; set; }
+        public MicrosoftUpdatePackageIdentity? UpdateID { get; set; }
         public int? RevisionNumber { get; set; }
         public string? DefaultPropertiesLanguage { get; set; }
         public string? UpdateType { get; set; }

@@ -2,12 +2,12 @@
 
 namespace WSUSLowAPI.Repositories
 {
-    public class UpdateDataRepository : IUpdateDataRepository
+    public class UpdateMetadataRepository : IUpdateMetadataRepository
     {
-        public List<UpdateData> _data;
+        public List<UpdateMetadata> _data;
         public int nextId;
 
-        public UpdateDataRepository()
+        public UpdateMetadataRepository()
         {
             nextId = 1;
             _data =
@@ -42,9 +42,9 @@ namespace WSUSLowAPI.Repositories
             ];
         }
 
-        public List<UpdateData> GetAll()
+        public List<UpdateMetadata> GetAll()
         {
-            return new List<UpdateData>(_data);
+            return new List<UpdateMetadata>(_data);
         }
     }
 }

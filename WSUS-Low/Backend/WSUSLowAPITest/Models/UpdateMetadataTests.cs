@@ -1,7 +1,7 @@
 namespace WSUSLowAPITest.Models
 {
     [TestClass]
-    public class UpdateDataTests
+    public class UpdateMetadataTests
     {
         [TestMethod]
         public void TestMethod1()
