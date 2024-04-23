@@ -1,6 +1,9 @@
-﻿namespace WSUSLowAPI.Repositories
+﻿using WSUSLowAPI.Models;
+
+namespace WSUSLowAPI.Repositories
 {
-    public class IUpdateDataRepository
+    public interface IUpdateDataRepository
     {
+        List<UpdateData> GetAll();
     }
 }

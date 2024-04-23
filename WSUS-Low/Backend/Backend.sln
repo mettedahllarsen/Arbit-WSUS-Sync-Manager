@@ -5,7 +5,9 @@ VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Console-App", "Console-App\Console-App.csproj", "{872A5072-B2F6-4843-B5E8-CDBCD1C2F61C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSUSLowAPI", "WSUSLowAPI\WSUSLowAPI.csproj", "{A033F798-6977-4DDF-BB68-3AA7925753DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WSUSLowAPI", "WSUSLowAPI\WSUSLowAPI.csproj", "{A033F798-6977-4DDF-BB68-3AA7925753DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSUSLowAPITest", "WSUSLowAPITest\WSUSLowAPITest.csproj", "{235EE1D9-DCFB-4752-8610-E396EC683A8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{A033F798-6977-4DDF-BB68-3AA7925753DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A033F798-6977-4DDF-BB68-3AA7925753DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A033F798-6977-4DDF-BB68-3AA7925753DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{235EE1D9-DCFB-4752-8610-E396EC683A8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{235EE1D9-DCFB-4752-8610-E396EC683A8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{235EE1D9-DCFB-4752-8610-E396EC683A8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{235EE1D9-DCFB-4752-8610-E396EC683A8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

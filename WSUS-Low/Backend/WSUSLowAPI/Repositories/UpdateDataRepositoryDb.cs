@@ -1,4 +1,5 @@
 ﻿using WSUSLowAPI.Contexts;
+using WSUSLowAPI.Models;
 
 namespace WSUSLowAPI.Repositories
 {
@@ -9,6 +10,11 @@ namespace WSUSLowAPI.Repositories
         public UpdateDataRepositoryDb(WSUSDbContext dbcontext)
         {
             _context = dbcontext;
+        }
+
+        public List<UpdateData> GetAll()
+        {
+            return [.. _context.UpdateData];
         }
     }
 }
