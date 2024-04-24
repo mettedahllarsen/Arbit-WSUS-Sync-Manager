@@ -26,6 +26,8 @@ using System.Formats.Tar;
 using SharpCompress.Writers;
 using SharpCompress.Writers.Tar;
 using SharpCompress.Common;
+using SharpCompress.Archives.Tar;
+using SharpCompress.Archives;
 
 
 string ConnString = "server = localhost; database = WSUSUpdateTable; user id = Frost; password = Frost3310peb; TrustServerCertificate = True";
@@ -278,24 +280,56 @@ static void DownloadUpdateContent()
 
     contentStore.Download(new List<IContentFile> { contentFileToDownload }, CancellationToken.None);
 
-    // After downloading, package the content into a TAR file
-    var tarFileName = Path.Combine(@"C:\UpdateContent", $"{contentFileToDownload.FileName}.tar");
-    using (var tarStream = File.Create(tarFileName))
-    using (var writer = new SharpCompress.Writers.Tar.TarWriter(tarStream, new SharpCompress.Writers.Tar.TarWriterOptions(SharpCompress.Common.CompressionType.None, true)))
+    // After downloading, convert all files in C:\UpdateContent to TAR files
+    ConvertFilesToTar(@"C:\UpdateContent");
+
+}
+
+static void ConvertFilesToTar(string startingDirectory)
+{
+    // Get all directories in the starting directory
+    var directories = Directory.GetDirectories(startingDirectory, "*", SearchOption.AllDirectories);
+
+    foreach (var directory in directories)
     {
-        // Assuming the content is downloaded to a specific directory
-        var contentDirectory = Path.Combine(@"C:\UpdateContent", contentFileToDownload.FileName);
-        if (Directory.Exists(contentDirectory))
+        // Check if the directory contains any files
+        var files = Directory.GetFiles(directory, "*", SearchOption.TopDirectoryOnly);
+        if (files.Length > 0)
         {
-            foreach (var file in Directory.GetFiles(contentDirectory))
+            // Create a TAR file for the directory
+            var tarFileName = Path.Combine(directory, Path.GetFileName(directory) + ".tar");
+            using (var archive = TarArchive.Create())
             {
-                writer.Write(file, Path.GetFileName(file));
+                // Add all files in the directory to the TAR archive
+                foreach (var file in files)
+                {
+                    var entryPath = Path.GetFileName(file);
+                    archive.AddEntry(entryPath, file);
+                }
+
+                // Save the TAR archive
+                archive.SaveTo(tarFileName, new WriterOptions(CompressionType.None));
+            }
+
+            Console.WriteLine($"Created TAR file: {tarFileName}");
+
+            // Delete the original files after they have been copied into the TAR directory
+            foreach (var file in files)
+            {
+                try
+                {
+                    File.Delete(file);
+                    Console.WriteLine($"Deleted original file: {file}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to delete original file: {file}. Error: {ex.Message}");
+                }
             }
         }
     }
-
-    Console.WriteLine($"TAR file created: {tarFileName}");
 }
+
 
 static void ContentStore_Progress(object? sender, Microsoft.PackageGraph.ObjectModel.ContentOperationProgress e)
 {
