@@ -21,6 +21,13 @@ using Microsoft.PackageGraph.ObjectModel;
 using Microsoft.PackageGraph.Storage.Local;
 using Microsoft.UpdateServices.Metadata;
 using Microsoft.UpdateServices.WebServices.ClientSync;
+using Microsoft.PackageGraph.Storage.Azure;
+using System.Formats.Tar;
+using SharpCompress.Writers;
+using SharpCompress.Writers.Tar;
+using SharpCompress.Common;
+using SharpCompress.Archives.Tar;
+using SharpCompress.Archives;
 
 
 string ConnString = "server = localhost; database = WSUSUpdateTable; user id = Frost; password = Frost3310peb; TrustServerCertificate = True";
@@ -37,7 +44,7 @@ void GetAvailableUpdatesForWindows()
     UpstreamCategoriesSource categoriesSource = new(Endpoint.Default);
 
     // Create a local store to save categories and updates locally
-    using var packageStore = PackageStore.OpenOrCreate(@"C:\WSUSUpdates");
+    using var packageStore = Microsoft.PackageGraph.Storage.Local.PackageStore.OpenOrCreate(@"C:\WSUSUpdates");
     categoriesSource.MetadataCopyProgress += PackageStore_MetadataCopyProgress;
 
     // Copy categories from the upstream source to the local store
@@ -64,6 +71,8 @@ void GetAvailableUpdatesForWindows()
         category.Title.Equals("Windows 11"));
     updatesFilter.ProductsFilter.Add(windows11Product.Id.ID);
 
+
+
     // Allow all available update classifications for the product selected
     updatesFilter
         .ClassificationsFilter
@@ -81,12 +90,47 @@ void GetAvailableUpdatesForWindows()
     // Create a CancellationTokenSource with a timeout of 10 minutes
     using (var cts = new CancellationTokenSource(timeout))
     {
-        // Copy updates from the upstream to the local store with the cancellation token
-        updatesSource.CopyTo(packageStore, cts.Token);
-        Console.WriteLine();
-        Console.WriteLine($"Copied {packageStore.GetPendingPackages().Count} new updates");
+        Console.WriteLine("Starting copy operation with a timeout of 10 minutes...");
+        var startTime = DateTime.Now;
+
+        try
+        {
+            // Copy updates from the upstream to the local store with the cancellation token
+            updatesSource.CopyTo(packageStore, cts.Token);
+            Console.WriteLine($"Copied {packageStore.GetPendingPackages().Count} new updates");
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine($"Operation timed out after {DateTime.Now - startTime}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
     }
+
 }
+
+
+//Kan bruges til at lave filtering - Easy. Er dog ikke sikker på at vi skal bruge den endnu (Kommer an på om vi laver filtering på front eller backend.)
+ProductCategory FindProduct(string productName, string parentProductName)
+{
+    using var packageStore = Microsoft.PackageGraph.Storage.Local.PackageStore.OpenOrCreate(@"C:\WSUSUpdates");
+    var parentProduct = packageStore
+        .OfType<ProductCategory>()
+        .FirstOrDefault(category => category.Title.Equals(parentProductName));
+
+    if (parentProduct == null)
+    {
+        return null;
+    }
+
+    return packageStore
+        .OfType<ProductCategory>()
+        .FirstOrDefault(category => category.Categories.Contains(parentProduct.Id.ID) &&
+        category.Title.Equals(productName));
+}
+
 
 void InsertIntoDatabase()
 {
@@ -117,13 +161,14 @@ void InsertIntoDatabase()
             // Parse the JSON data
             var updateData = ParseUpdateDataFromXml(xmlDoc);
 
-            // Create a command to check if the update already exists in your database
+            // Check if the update already exists in the database
             using (SqlCommand checkCommand = new SqlCommand("SELECT COUNT(*) FROM Updates WHERE UpdateID = @UpdateID AND RevisionNumber = @RevisionNumber", connection))
             {
                 checkCommand.Parameters.AddWithValue("@UpdateID", updateData.UpdateID != null ? (object)updateData.UpdateID.ID : DBNull.Value);
-                checkCommand.Parameters.AddWithValue("@RevisionNumber", updateData.RevisionNumber != 0 ? updateData.RevisionNumber : (object)DBNull.Value);
-                // Execute the command and get the count
+                checkCommand.Parameters.AddWithValue("@RevisionNumber", updateData.UpdateID != null ? updateData.UpdateID.Revision : (object)DBNull.Value);
                 int existingCount = (int)checkCommand.ExecuteScalar();
+                bool skipped = false;
+
                 // If the count is 0, then the update does not exist in the database
                 if (existingCount == 0)
                 {
@@ -156,11 +201,21 @@ void InsertIntoDatabase()
                         command.ExecuteNonQuery();
                         successfulInserts++; // Increment the counter for successful inserts
                     }
+
                 }
+
+                else
+                {
+                    // An insertion was skipped
+                    skipped = true;
+                }
+
+                processedFiles++;
+                double progressPercentage = (double)processedFiles / totalFiles * 100;
+                // Append "- Skipping" to the progress message if an insertion was skipped
+                string progressMessage = skipped ? $"Progress: {progressPercentage:F2}% ({processedFiles}/{totalFiles}) - Skipping" : $"Progress: {progressPercentage:F2}% ({processedFiles}/{totalFiles})";
+                Console.Write($"\r{progressMessage}");
             }
-            processedFiles++; // Increment the counter for processed files
-            double progressPercentage = (double)processedFiles / totalFiles * 100; // Calculate the progress percentage
-            Console.Write($"\rProgress: {progressPercentage:F2}% ({processedFiles}/{totalFiles})"); // Use \r to overwrite the line
         }
     }
 
@@ -171,13 +226,10 @@ void InsertIntoDatabase()
 }
 
 
-
-
-
 static void PrintSupersededUpdates()
 {
     // Open the local updates store
-    using var packageStore = PackageStore.Open(@"C:\WSUSUpdates");
+    using var packageStore = Microsoft.PackageGraph.Storage.Local.PackageStore.Open(@"C:\WSUSUpdates");
 
     // Grab the first cumulative update that is superseded by another update
     var firstUpdateAvailable = packageStore
@@ -207,7 +259,7 @@ static void PrintSupersededUpdates()
 static void DownloadUpdateContent()
 {
     // Open the local updates store
-    using var packageStore = PackageStore.Open(@"C:\WSUSUpdates");
+    using var packageStore = Microsoft.PackageGraph.Storage.Local.PackageStore.Open(@"C:\WSUSUpdates");
 
     // Grab the first update that has some content
     var updateWithContent = packageStore
@@ -227,7 +279,57 @@ static void DownloadUpdateContent()
     contentStore.Progress += ContentStore_Progress;
 
     contentStore.Download(new List<IContentFile> { contentFileToDownload }, CancellationToken.None);
+
+    // After downloading, convert all files in C:\UpdateContent to TAR files
+    ConvertFilesToTar(@"C:\UpdateContent");
+
 }
+
+static void ConvertFilesToTar(string startingDirectory)
+{
+    // Get all directories in the starting directory
+    var directories = Directory.GetDirectories(startingDirectory, "*", SearchOption.AllDirectories);
+
+    foreach (var directory in directories)
+    {
+        // Check if the directory contains any files
+        var files = Directory.GetFiles(directory, "*", SearchOption.TopDirectoryOnly);
+        if (files.Length > 0)
+        {
+            // Create a TAR file for the directory
+            var tarFileName = Path.Combine(directory, Path.GetFileName(directory) + ".tar");
+            using (var archive = TarArchive.Create())
+            {
+                // Add all files in the directory to the TAR archive
+                foreach (var file in files)
+                {
+                    var entryPath = Path.GetFileName(file);
+                    archive.AddEntry(entryPath, file);
+                }
+
+                // Save the TAR archive
+                archive.SaveTo(tarFileName, new WriterOptions(CompressionType.None));
+            }
+
+            Console.WriteLine($"Created TAR file: {tarFileName}");
+
+            // Delete the original files after they have been copied into the TAR directory
+            foreach (var file in files)
+            {
+                try
+                {
+                    File.Delete(file);
+                    Console.WriteLine($"Deleted original file: {file}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to delete original file: {file}. Error: {ex.Message}");
+                }
+            }
+        }
+    }
+}
+
 
 static void ContentStore_Progress(object? sender, Microsoft.PackageGraph.ObjectModel.ContentOperationProgress e)
 {
