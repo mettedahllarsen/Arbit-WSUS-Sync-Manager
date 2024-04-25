@@ -1,10 +1,12 @@
 ﻿using Microsoft.PackageGraph.MicrosoftUpdate.Metadata;
+using System.ComponentModel.DataAnnotations;
 
 namespace WSUSLowAPI.Models
 {
     public class UpdateMetadata
     {
-        public int? MetadataId { get; set; }
+        [Key]
+        public int? MetadataId { get; set; } = null;
         public MicrosoftUpdatePackageIdentity? UpdateID { get; set; }
         public int? RevisionNumber { get; set; }
         public string? DefaultPropertiesLanguage { get; set; }

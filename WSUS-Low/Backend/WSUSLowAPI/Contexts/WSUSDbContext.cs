@@ -5,7 +5,10 @@ namespace WSUSLowAPI.Contexts
 {
     public class WSUSDbContext(DbContextOptions<WSUSDbContext> options) : DbContext(options)
     {
-        // Define DbSet properties for each table you want to interact with
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UpdateMetadata>().Property(p => p.UpdateID).HasColumnName("UpdateID");
+        }
         public DbSet<UpdateMetadata> UpdateMetadata { get; set; }
 
     }

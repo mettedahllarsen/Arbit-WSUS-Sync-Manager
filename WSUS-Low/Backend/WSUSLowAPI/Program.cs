@@ -18,14 +18,14 @@ builder.Services.AddCors(options =>
 bool useSql = true;
 if (useSql)
 {
-    var optionsbuilder = new DbContextOptionsBuilder<WSUSDbContext>();
-    optionsbuilder.UseSqlServer(builder.Configuration["ConnectionStrings:MikkelConnection"]);
-    WSUSDbContext context = new(optionsbuilder.Options);
-    builder.Services.AddSingleton<IUpdateMetadataRepository>(new UpdateMetadataRepositoryDb(context));
+    builder.Services.AddDbContext<WSUSDbContext>(options =>
+        options.UseSqlServer(builder.Configuration["ConnectionStrings:MikkelConnection"]));
+    builder.Services.AddScoped<IUpdateMetadataRepository, UpdateMetadataRepositoryDb>();
+
 }
 else
 {
-    builder.Services.AddSingleton<IUpdateMetadataRepository>(new UpdateMetadataRepository());
+    //builder.Services.AddSingleton<IUpdateMetadataRepository>(new UpdateMetadataRepository());
 }
 
 builder.Services.AddControllers();

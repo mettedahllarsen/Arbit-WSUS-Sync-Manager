@@ -11,20 +11,27 @@ using Endpoint = Microsoft.PackageGraph.MicrosoftUpdate.Source.Endpoint;
 
 namespace WSUSLowAPI.Repositories
 {
-    public class UpdateMetadataRepositoryDb(WSUSDbContext dbcontext) : IUpdateMetadataRepository
+    public class UpdateMetadataRepositoryDb : IUpdateMetadataRepository
     {
-        public List<UpdateMetadata> GetAll()
+        private readonly WSUSDbContext _dbContext;
+
+        public UpdateMetadataRepositoryDb(WSUSDbContext dbContext)
         {
-            return [.. dbcontext.UpdateMetadata];
+            _dbContext = dbContext;
+        }
+        public IEnumerable<UpdateMetadata> GetAll()
+        {
+            return [.. _dbContext.UpdateMetadata];
         }
 
-        public string FetchToDb(string filter)
+        public string FetchToDb(string? filter)
         {
             GetAvailableUpdates(filter);
-            return "Successfully";
+            InsertIntoDatabase();
+            return "Metadata added to the Database";
         }
 
-        private void GetAvailableUpdates(string filter)
+        private static void GetAvailableUpdates(string? filter)
         {
             UpstreamCategoriesSource categoriesSource = new(Endpoint.Default);
 
@@ -52,29 +59,35 @@ namespace WSUSLowAPI.Repositories
                 Console.WriteLine($"Filtering to product \"{filteredProducts.Title}\", all  classifications.");
 
                 Console.WriteLine("Fetching matching updates from upstream and saving them to the local store...");
-                UpstreamUpdatesSource updatesSource = new(Endpoint.Default, updatesFilter);
-                updatesSource.MetadataCopyProgress += PackageStore_MetadataCopyProgress;
-
-
-                var timeout = TimeSpan.FromMinutes(10);
-
-                using var cts = new CancellationTokenSource(timeout);
-                updatesSource.CopyTo(packageStore, cts.Token);
-                Console.WriteLine();
-                Console.WriteLine($"Copied {packageStore.GetPendingPackages().Count} new updates");
             } else
             {
                 Console.WriteLine("Fetching all updates from upstream and saving them to the local store...");
-                UpstreamUpdatesSource updatesSource = new(Endpoint.Default, updatesFilter);
-                updatesSource.MetadataCopyProgress += PackageStore_MetadataCopyProgress;
+            }
+            UpstreamUpdatesSource updatesSource = new(Endpoint.Default, updatesFilter);
+            updatesSource.MetadataCopyProgress += PackageStore_MetadataCopyProgress;
 
 
-                var timeout = TimeSpan.FromMinutes(20);
+            var timeout = TimeSpan.FromMinutes(20);
 
-                using var cts = new CancellationTokenSource(timeout);
-                updatesSource.CopyTo(packageStore, cts.Token);
-                Console.WriteLine();
-                Console.WriteLine($"Copied {packageStore.GetPendingPackages().Count} new updates");
+            using (var cts = new CancellationTokenSource(timeout))
+            {
+                Console.WriteLine("Starting copy operation with a timeout of 20 minutes...");
+                var startTime = DateTime.Now;
+
+                try
+                {
+                    // Copy updates from the upstream to the local store with the cancellation token
+                    updatesSource.CopyTo(packageStore, cts.Token);
+                    Console.WriteLine($"Copied {packageStore.GetPendingPackages().Count} new updates");
+                }
+                catch (OperationCanceledException)
+                {
+                    Console.WriteLine($"Operation timed out after {DateTime.Now - startTime}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred: {ex.Message}");
+                }
             }
         }
 
@@ -95,13 +108,36 @@ namespace WSUSLowAPI.Repositories
             int totalFiles = xmlFiles.Count();
             int processedFiles = 0;
 
+            var foundMetadatas = GetAll();
+
             foreach (string  xmlFile in xmlFiles)
             {
                 var xmlDoc = new XmlDocument();
                 xmlDoc.Load(xmlFile);
 
-                var updateMetadata
+                var updateMetadata = ParseMetadataFromXml(xmlDoc);
+                //updateMetadata.Validate(); Not working yet
+
+                bool skipped = false;
+
+                var foundMetadata = foundMetadatas.FirstOrDefault(x => x.UpdateID == updateMetadata.UpdateID && x.RevisionNumber == updateMetadata.RevisionNumber);
+                if (foundMetadata != null)
+                {
+                    _dbContext.UpdateMetadata.Add(updateMetadata);
+                    _dbContext.SaveChanges();
+                    successfulInserts++;
+                } else
+                {
+                    skipped = true;
+                }
+
+                processedFiles++;
+                double progressPercentage = (double)processedFiles / totalFiles * 100;
+                string progressMessage = skipped ? $"Progress: {progressPercentage:F2}% ({processedFiles}/{totalFiles}) - Skipping" : $"Progress: {progressPercentage:F2}% ({processedFiles}/{totalFiles})";
+                Console.Write($"\r{progressMessage}");
             }
+
+            Console.WriteLine($"Successfully inserted {successfulInserts} updates into the database.");
         }
 
         private static UpdateMetadata ParseMetadataFromXml(XmlDocument xmlDoc)

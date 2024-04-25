@@ -8,8 +8,14 @@ namespace WSUSLowAPI.Controllers
     [EnableCors("AllowAll")]
     [Route("api/[controller]")]
     [ApiController]
-    public class UpdateMetadatasController(IUpdateMetadataRepository repository) : ControllerBase
+    public class UpdateMetadatasController : ControllerBase
     {
+        private readonly IUpdateMetadataRepository _repository;
+        public UpdateMetadatasController(IUpdateMetadataRepository repository)
+        {
+            _repository = repository;
+        }
+
         // GET: api/<UpdateMetadatasController>
         [HttpGet]
         public string Welcome()
@@ -21,10 +27,10 @@ namespace WSUSLowAPI.Controllers
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         // GET: api/<UpdateMetadatasController>/fetch
-        [HttpPost("fetch/{filter}")]
-        public ActionResult<IEnumerable<string>> FetchMetadata(string filter)
+        [HttpPost("fetch")]
+        public IActionResult FetchMetadata([FromBody] FetchFilter newFilter)
         {
-            string resultmessage = repository.FetchToDb(filter);
+            string resultmessage = _repository.FetchToDb(newFilter.Title);
 
             return Ok(resultmessage);
         }
@@ -33,10 +39,10 @@ namespace WSUSLowAPI.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         // GET: api/<UpdateMetadatasController>/get
         [HttpGet("get")]
-        public ActionResult<IEnumerable<UpdateMetadata>> GetAll()
+        public IActionResult GetAll()
         {
-            List<UpdateMetadata> result = repository.GetAll();
-            if (result == null || result.Count < 1)
+            var result = _repository.GetAll();
+            if (result == null)
             {
                 return NoContent();
             }
