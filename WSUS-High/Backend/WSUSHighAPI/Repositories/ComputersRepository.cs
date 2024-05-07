@@ -10,7 +10,7 @@ namespace WSUSHighAPI.Repositories
 
     public class ComputersRepository
     {
-        private readonly string _connectionString = "server=localhost;database=WSUSHighDB;" + "user id=wsusmikkel;password=wsus;TrustServerCertificate=True";
+        private readonly string _connectionString = "server=localhost;database=WSUSHighDB;" + "user id=IDHERE;password=PASSHERE;TrustServerCertificate=True";
 
         public IEnumerable<Computer> GetAllComputers()
         {

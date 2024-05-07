@@ -2,7 +2,19 @@ using WSUSHighAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var MyCors = "_myCors";
+
 // Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyCors,
+                              policy =>
+                              {
+                                  policy.AllowAnyOrigin()
+                                  .AllowAnyMethod()
+                                  .AllowAnyHeader();
+                              });
+});
 
 builder.Services.AddControllers();
 
@@ -20,6 +32,8 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 // Configure the HTTP request pipeline.
+
+app.UseCors(MyCors);
 
 app.UseAuthorization();
 
