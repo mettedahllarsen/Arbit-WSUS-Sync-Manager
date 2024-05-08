@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import "./App.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faHouse,
@@ -15,8 +14,8 @@ import HeaderNav from "./Components/Header/HeaderNav";
 import HeaderTitle from "./Components/Header/HeaderTitle";
 import Overview from "./Components/Pages/Overview";
 import SideBar from "./Components/SideBar/SideBar";
-import Second from "./Components/Pages/Updates";
 import PageNotFound from "./Components/Pages/PageNotFound";
+import Updates from "./Components/Pages/Updates";
 
 library.add(
   faHouse,
@@ -43,7 +42,7 @@ const App = () => {
 
         <Routes>
           <Route index element={<Overview />} />
-          <Route path="second" element={<Second />} />
+          <Route path="updates" element={<Updates />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>
