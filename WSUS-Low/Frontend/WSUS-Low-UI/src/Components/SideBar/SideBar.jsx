@@ -15,24 +15,9 @@ const SideBar = () => {
             <FontAwesomeIcon icon="house" className="nav-icon me-4" />
             Overview
           </Nav.Link>
-          <Nav.Link href="/updates" className="nav-button">
+          <Nav.Link href="/second" className="nav-button">
             <FontAwesomeIcon icon={faFileArrowDown} className="nav-icon me-4" />
-            Updates
-          </Nav.Link>
-          <Nav.Link href="/updates" className="nav-button">
-            <FontAwesomeIcon icon={faNetworkWired} className="nav-icon me-4" />
-            Clients
-          </Nav.Link>
-          <Nav.Link href="/updates" className="nav-button">
-            <FontAwesomeIcon icon="rotate" className="nav-icon me-4" />
-            Sync {/* Find ud af navn */}
-          </Nav.Link>
-          <Nav.Link href="/updates" className="nav-button">
-            <FontAwesomeIcon
-              icon={faClockRotateLeft}
-              className="nav-icon me-4"
-            />
-            History
+            Second
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>
