@@ -1,0 +1,6 @@
+@WSUSLowAPI_HostAddress = http://localhost:5163
+
+GET {{WSUSLowAPI_HostAddress}}/swagger/
+Accept: application/json
+
+###
