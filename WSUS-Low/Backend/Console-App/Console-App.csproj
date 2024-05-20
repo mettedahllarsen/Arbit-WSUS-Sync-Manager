@@ -14,6 +14,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
     <PackageReference Include="MyTested.AspNetCore.Mvc.ViewFeatures" Version="8.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="SharpCompress" Version="0.37.0" />
     <PackageReference Include="SharpZipLib" Version="1.4.0" />
     <PackageReference Include="System.ServiceModel.Http" Version="8.0.0" />
     <PackageReference Include="UpdateServices.ClientServerSync" Version="1.6.1" />
