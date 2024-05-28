@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Container, Card, Row, Col, Button, Spinner } from "react-bootstrap";
 
-const Updates = () => {
+const SyncSettings = () => {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log("Updates mounted");
+    console.log("SyncSettings mounted");
   }, []);
 
   const handleRefresh = () => {
@@ -15,13 +15,13 @@ const Updates = () => {
 
   return (
     <Container fluid className="px-2 py-3">
-      <Row className="g-2">
+      <Row>
         <Col>
           <Card className="p-2">
             <Row className="align-items-center">
               <Col as="h2" xs="auto" className="title m-0">
-                <FontAwesomeIcon icon="file-arrow-down" className="me-2" />
-                Updates
+                <FontAwesomeIcon icon="rotate" className="me-2" />
+                Syncronization Settings
               </Col>
               <Col xs="auto">
                 <span>
@@ -48,4 +48,4 @@ const Updates = () => {
   );
 };
 
-export default Updates;
+export default SyncSettings;

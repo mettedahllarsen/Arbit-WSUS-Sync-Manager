@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Container, Card, Row, Col, Button, Spinner } from "react-bootstrap";
 
-const Updates = () => {
+const Activity = () => {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log("Updates mounted");
+    console.log("Activity mounted");
   }, []);
 
   const handleRefresh = () => {
@@ -20,8 +20,8 @@ const Updates = () => {
           <Card className="p-2">
             <Row className="align-items-center">
               <Col as="h2" xs="auto" className="title m-0">
-                <FontAwesomeIcon icon="file-arrow-down" className="me-2" />
-                Updates
+                <FontAwesomeIcon icon="clock-rotate-left" className="me-2" />
+                Activity
               </Col>
               <Col xs="auto">
                 <span>
@@ -48,4 +48,4 @@ const Updates = () => {
   );
 };
 
-export default Updates;
+export default Activity;

@@ -10,7 +10,7 @@ namespace WSUSHighAPI.Repositories
 
     public class ComputersRepository
     {
-        private readonly string _connectionString = "server=localhost;database=WSUSHighDB;" + "user id=IDHERE;password=PASSHERE;TrustServerCertificate=True";
+        private readonly string _connectionString = "server=localhost;database=WSUSHigh;" + "user id=wsusmikkel;password=wsus;TrustServerCertificate=True";
 
         public IEnumerable<Computer> GetAllComputers()
         {
@@ -27,10 +27,10 @@ namespace WSUSHighAPI.Repositories
                     Computer computer = new Computer
                     {
                         ComputerID = Convert.ToInt32(reader["ComputerID"]),
-                        ComputerName = reader["ComputerName"].ToString(),
-                        IPAddress = reader["IPAddress"].ToString(),
-                        OSVersion = reader["OSVersion"].ToString(),
-                        LastConnection = Convert.ToDateTime(reader["LastConnection"])
+                        ComputerName = reader["ComputerName"] != DBNull.Value ? reader["ComputerName"].ToString() : "Unknown", // Default to "Unknown" if null
+                        IPAddress = reader["IPAddress"] != DBNull.Value ? reader["IPAddress"].ToString() : "No IP", // Default to "No IP" if null
+                        OSVersion = reader["OSVersion"] != DBNull.Value ? reader["OSVersion"].ToString() : "No OS", // Default to "No OS" if null
+                        LastConnection = reader["LastConnection"] != DBNull.Value ? Convert.ToDateTime(reader["LastConnection"]) : null
                     };
                     computers.Add(computer);
                 }

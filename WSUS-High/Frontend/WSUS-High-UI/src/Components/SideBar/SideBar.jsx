@@ -1,8 +1,3 @@
-import {
-  faClockRotateLeft,
-  faFileArrowDown,
-  faNetworkWired,
-} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Navbar, Nav } from "react-bootstrap";
 
@@ -15,24 +10,24 @@ const SideBar = () => {
             <FontAwesomeIcon icon="house" className="nav-icon me-4" />
             Overview
           </Nav.Link>
-          <Nav.Link href="/updates" className="nav-button">
-            <FontAwesomeIcon icon={faFileArrowDown} className="nav-icon me-4" />
+          <Nav.Link href="/Updates" className="nav-button">
+            <FontAwesomeIcon icon="file-arrow-down" className="nav-icon me-4" />
             Updates
           </Nav.Link>
-          <Nav.Link href="/updates" className="nav-button">
-            <FontAwesomeIcon icon={faNetworkWired} className="nav-icon me-4" />
+          <Nav.Link href="/Clients" className="nav-button">
+            <FontAwesomeIcon icon="network-wired" className="nav-icon me-4" />
             Clients
           </Nav.Link>
-          <Nav.Link href="/updates" className="nav-button">
+          <Nav.Link href="/Syncronization-Settings" className="nav-button">
             <FontAwesomeIcon icon="rotate" className="nav-icon me-4" />
-            Sync {/* Find ud af navn */}
+            Sync Settings {/* TODO: Find ud af navn */}
           </Nav.Link>
-          <Nav.Link href="/updates" className="nav-button">
+          <Nav.Link href="/Activity" className="nav-button">
             <FontAwesomeIcon
-              icon={faClockRotateLeft}
+              icon="clock-rotate-left"
               className="nav-icon me-4"
             />
-            History
+            Activity
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>
