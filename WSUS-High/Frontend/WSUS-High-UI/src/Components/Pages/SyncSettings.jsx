@@ -14,10 +14,10 @@ const SyncSettings = () => {
   };
 
   return (
-    <Container fluid className="px-2 py-3">
+    <Container fluid>
       <Row>
         <Col>
-          <Card className="p-2">
+          <Card className="px-3 py-2">
             <Row className="align-items-center">
               <Col as="h2" xs="auto" className="title m-0">
                 <FontAwesomeIcon icon="rotate" className="me-2" />

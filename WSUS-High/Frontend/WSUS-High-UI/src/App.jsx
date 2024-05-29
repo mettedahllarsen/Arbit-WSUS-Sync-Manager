@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Container, Row, Col } from "react-bootstrap";
 import { Routes, Route } from "react-router-dom";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -81,44 +82,44 @@ const App = () => {
 
   // TODO: Add the rest of pages
   return (
-    <div className="app-container">
-      <div className="header-container">
-        <Header title={<HeaderTitle />} content={<HeaderNav />} />
-      </div>
-
-      <div className="content-container">
-        <SideBar />
-
-        <Routes>
-          <Route
-            index
-            element={
-              <Overview
-                checkConnection={checkConnection}
-                apiConnection={apiConnection}
-                dbConnection={dbConnection}
-                updateTime={updateTime}
-              />
-            }
-          />
-          <Route path="updates" element={<Updates />} />
-          <Route
-            path="clients"
-            element={
-              <Clients
-                checkConnection={checkConnection}
-                apiConnection={apiConnection}
-                dbConnection={dbConnection}
-                updateTime={updateTime}
-              />
-            }
-          />
-          <Route path="Syncronization-Settings" element={<SyncSettings />} />
-          <Route path="activity" element={<Activity />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </div>
-    </div>
+    <Container fluid className="gx-0 Content">
+      <Header title={<HeaderTitle />} content={<HeaderNav />} />
+      <Row className="g-0">
+        <Col xs="auto">
+          <SideBar />
+        </Col>
+        <Col className="Page py-3">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Overview
+                  checkConnection={checkConnection}
+                  apiConnection={apiConnection}
+                  dbConnection={dbConnection}
+                  updateTime={updateTime}
+                />
+              }
+            />
+            <Route path="/updates" element={<Updates />} />
+            <Route
+              path="/clients"
+              element={
+                <Clients
+                  checkConnection={checkConnection}
+                  apiConnection={apiConnection}
+                  dbConnection={dbConnection}
+                  updateTime={updateTime}
+                />
+              }
+            />
+            <Route path="/syncsettings" element={<SyncSettings />} />
+            <Route path="/activity" element={<Activity />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

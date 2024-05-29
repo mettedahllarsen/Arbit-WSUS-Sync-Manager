@@ -14,10 +14,10 @@ const Updates = () => {
   };
 
   return (
-    <Container fluid className="px-2 py-3">
+    <Container fluid>
       <Row className="g-2">
         <Col>
-          <Card className="p-2">
+          <Card className="px-3 py-2">
             <Row className="align-items-center">
               <Col as="h2" xs="auto" className="title m-0">
                 <FontAwesomeIcon icon="file-arrow-down" className="me-2" />

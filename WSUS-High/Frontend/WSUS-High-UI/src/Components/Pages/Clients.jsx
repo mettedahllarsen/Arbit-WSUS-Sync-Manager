@@ -21,7 +21,7 @@ const Clients = (props) => {
   const { checkConnection, apiConnection, dbConnection, updateTime } = props;
   const [isLoading, setLoading] = useState(false);
   const [computers, setComputers] = useState([]);
-  const [selectedComputer, setSelectedComputer] = useState({});
+  const [selectedComputer, setSelectedComputer] = useState(null);
 
   const [showAddClientModal, setShowAddClientModal] = useState(false);
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
@@ -38,7 +38,7 @@ const Clients = (props) => {
   };
 
   const simulateLoading = () => {
-    return new Promise((resolve) => setTimeout(resolve, 1500));
+    return new Promise((resolve) => setTimeout(resolve, 1000));
   };
 
   const handleRefresh = () => {
@@ -50,10 +50,12 @@ const Clients = (props) => {
     });
   };
 
-  // Partially working
   const handleDetailedCard = (computer) => {
-    if (showDetailedCard) {
-      setShowDetailedCard(false);
+    if (
+      selectedComputer &&
+      selectedComputer.computerID === computer.computerID
+    ) {
+      setShowDetailedCard(!showDetailedCard);
     } else {
       setSelectedComputer(computer);
       setShowDetailedCard(true);
@@ -67,10 +69,10 @@ const Clients = (props) => {
   }, []);
 
   return (
-    <Container fluid className="px-2 py-3">
+    <Container fluid>
       <Row className="g-2">
         <Col xs="12">
-          <Card className="p-2">
+          <Card className="px-3 py-2">
             <Row className="align-items-center">
               <Col as="h2" xs="auto" className="title m-0">
                 <FontAwesomeIcon icon="network-wired" className="me-2" />
@@ -182,6 +184,7 @@ const Clients = (props) => {
         <Col>
           {showDetailedCard && (
             <DetailedCard
+              key={selectedComputer ? selectedComputer.computerID : null}
               hide={() => {
                 setShowDetailedCard(false);
               }}

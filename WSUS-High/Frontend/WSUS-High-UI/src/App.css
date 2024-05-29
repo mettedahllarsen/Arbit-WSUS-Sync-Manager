@@ -5,6 +5,28 @@ body {
   background: #6c757d !important;
 }
 
+.Content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.HeaderBar {
+  background: #fff !important;
+}
+
+.Page {
+  margin-left: 200px;
+}
+
+.SideBar {
+  position: fixed;
+  height: 100%;
+  width: 200px;
+  background-color: black;
+  padding: 0;
+}
+
 .modal-margin {
   margin-top: 10% !important;
 }
@@ -13,70 +35,22 @@ span {
   font-size: large;
 }
 
-
 .title {
   color: rgb(0, 65, 114) !important;
 }
 
-.app-container {
-  height: 100%;
-  width: 100%;
-}
-
-.header-container {
-  background: #fff;
-  position: fixed !important;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-}
-
-.content-container {
-  flex-grow: 1;
-  display: flex;
-  margin-top: 70px;
-  margin-left: 200px;
-}
-
-@media (max-width: 768px) {
-  .nav-icon {
-    display: none;
-  }
-  .SideBar {
-    text-align: center;
-  }
-}
-
-.SideBar {
-  width: 200px;
-  height: 100%;
-  background-color: black;
-  position: fixed;
-  top: 1;
-  left: 0;
-}
-
-.navbar-collapse {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.navbar-nav {
-  display: block !important;
-  width: 100%;
-  line-height: 40px;
-}
-
 [class*="nav-button"] {
   font-size: 18px !important;
+  line-height: 40px;
   color: #9999 !important;
   cursor: pointer;
   transition: background-color 0.3s ease !important;
   padding-top: 9px !important;
   padding-bottom: 9px !important;
   padding-left: 15px !important;
+  display: block;
+  text-align: start;
+  border-radius: 0%
 }
 
 [class*="nav-button"]:hover,

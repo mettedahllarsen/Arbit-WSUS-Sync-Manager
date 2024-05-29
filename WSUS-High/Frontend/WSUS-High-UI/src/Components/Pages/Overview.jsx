@@ -19,7 +19,7 @@ const Overview = (props) => {
   const [isLoading, setLoading] = useState(false);
 
   const simulateLoading = () => {
-    return new Promise((resolve) => setTimeout(resolve, 1500));
+    return new Promise((resolve) => setTimeout(resolve, 1000));
   };
 
   const handleRefresh = () => {
@@ -35,10 +35,10 @@ const Overview = (props) => {
   }, []);
 
   return (
-    <Container fluid className="px-2 py-3">
+    <Container fluid>
       <Row className="g-2">
         <Col xs="12">
-          <Card className="p-2">
+          <Card className="px-3 py-2">
             <Row className="align-items-center">
               <Col as="h2" xs="auto" className="title m-0">
                 <FontAwesomeIcon icon="house" className="me-2" />
