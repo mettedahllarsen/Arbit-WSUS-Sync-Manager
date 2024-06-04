@@ -11,14 +11,14 @@ namespace Console_App
     {
         public MicrosoftUpdatePackageIdentity UpdateID { get; set; }
         public int RevisionNumber { get; set; }
-        public string DefaultPropertiesLanguage { get; set; }
-        public string UpdateType { get; set; }
+        public string? DefaultPropertiesLanguage { get; set; }
+        public string? UpdateType { get; set; }
         public long MaxDownloadSize { get; set; }
         public long MinDownloadSize { get; set; }
-        public string PublicationState { get; set; }
+        public string? PublicationState { get; set; }
         public DateTime CreationDate { get; set; }
         public Guid PublisherID { get; set; }
-        public string Title { get; set; }
-    }
+        public string? Title { get; set; }
 
+    }
 }

@@ -8,7 +8,7 @@ const Header = (props) => {
   }, []);
 
   return (
-    <Navbar className="px-2">
+    <Navbar className="px-2 HeaderBar">
       <Stack direction="horizontal" gap={3} className="w-100">
         <NavbarText>
           <h1>Arbit Logo</h1>
