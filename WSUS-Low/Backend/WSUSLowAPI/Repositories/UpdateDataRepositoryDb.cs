@@ -5,23 +5,47 @@ using Microsoft.PackageGraph.MicrosoftUpdate.Source;
 using Microsoft.PackageGraph.Storage;
 using Microsoft.PackageGraph.Storage.Local;
 using System.Xml;
-using WSUSLowAPI.Contexts;
 using WSUSLowAPI.Models;
 using Endpoint = Microsoft.PackageGraph.MicrosoftUpdate.Source.Endpoint;
 
 namespace WSUSLowAPI.Repositories
 {
-    public class UpdateMetadataRepositoryDb : IUpdateMetadataRepository
+    public class UpdateDataRepositoryDb : IUpdateDataRepository
     {
-        private readonly WSUSDbContext _dbContext;
+        private readonly string _connectionString = "server=localhost;database=WSUSLowDB;" + "user id=wsusmikkel;password=wsus;TrustServerCertificate=True";
 
-        public UpdateMetadataRepositoryDb(WSUSDbContext dbContext)
+        public IEnumerable<UpdateData> GetAll()
         {
-            _dbContext = dbContext;
-        }
-        public IEnumerable<UpdateMetadata> GetAll()
-        {
-            return [.. _dbContext.UpdateMetadata];
+            List<UpdateData> updateDatas = new();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Updates", connection);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    string? identifier = reader["UpdateIdentifier"].ToString();
+                    byte[] publisherID = (byte[])reader["PublisherId"];
+                    Guid publisherGuid = new(publisherID);
+                    UpdateData updateData = new()
+                    {
+                        UpdateID = Convert.ToInt32(reader["ComputerID"]),
+                        UpdateIdentifier = MicrosoftUpdatePackageIdentity.FromString(identifier),
+                        RevisionNumber = Convert.ToInt32(reader["RevisionNumber"]),
+                        UpdateType = reader["UpdateType"].ToString(),
+                        MaxDownloadSize = Convert.ToInt32(reader["MaxDownloadSize"]),
+                        MinDownloadSize = Convert.ToInt32(reader["MinDownloadSize"]),
+                        PublicationState = reader["PublicationState"].ToString(),
+                        CreationDate = Convert.ToDateTime(reader["CreationDate"]),
+                        PublisherID = publisherGuid,
+                        Title = reader["Title"].ToString()
+                    };
+                    updateDatas.Add(updateData);
+                }
+            }
+            return updateDatas;
         }
 
         public string FetchToDb(string? filter)
@@ -140,9 +164,9 @@ namespace WSUSLowAPI.Repositories
             Console.WriteLine($"Successfully inserted {successfulInserts} updates into the database.");
         }
 
-        private static UpdateMetadata ParseMetadataFromXml(XmlDocument xmlDoc)
+        private static UpdateData ParseMetadataFromXml(XmlDocument xmlDoc)
         {
-            var updateMetadata = new UpdateMetadata();
+            var updateMetadata = new UpdateData();
 
             var namespaceManager = new XmlNamespaceManager(xmlDoc.NameTable);
             namespaceManager.AddNamespace("upd", "http://schemas.microsoft.com/msus/2002/12/Update");
