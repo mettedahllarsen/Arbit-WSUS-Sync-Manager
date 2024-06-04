@@ -68,13 +68,14 @@ const Clients = (props) => {
     getComputers();
   }, []);
 
+  // TODO: Find a solution for extra buttons in
   return (
     <Container fluid>
       <Row className="g-2">
         <Col xs="12">
           <Card className="px-3 py-2">
             <Row className="align-items-center">
-              <Col as="h2" xs="auto" className="title m-0">
+              <Col as="h3" xs="auto" className="title m-0">
                 <FontAwesomeIcon icon="network-wired" className="me-2" />
                 Clients
               </Col>
@@ -102,7 +103,7 @@ const Clients = (props) => {
             </Row>
           </Card>
         </Col>
-        <Col xs="6">
+        <Col xs="12" lg="6">
           <Card className="p-2">
             <Table striped bordered responsive hover className="m-0">
               <thead>
@@ -112,7 +113,15 @@ const Clients = (props) => {
                   <th>IP</th>
                   <th>OS Version</th>
                   <th>Last Connections</th>
-                  <th></th>
+                  <th className="py-1 px-0 text-center">
+                    <Button
+                      onClick={() => setShowAddClientModal(true)}
+                      disabled={!dbConnection && !apiConnection}
+                      size="sm"
+                    >
+                      <FontAwesomeIcon icon="plus" />
+                    </Button>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -173,9 +182,9 @@ const Clients = (props) => {
             </Table>
           </Card>
         </Col>
-        <Col xs="6">
+        <Col xs="12" lg="6">
           <Card>
-            <CardHeader as={"h3"} className="text-center mb-3 title">
+            <CardHeader as={"h4"} className="text-center mb-3 title">
               Update Planner
             </CardHeader>
             <h3 className="text-center">TBA</h3>

@@ -31,30 +31,24 @@ const AddClientModal = (props) => {
   }, []);
 
   const nameHandler = (e) => {
-    const name = e.target.value;
-    if (name.length > 15) {
-      setNameMessage("Cannot be longer than 15 characters");
+    const input = e.target.value;
+    const result = Utils.nameHandler(input);
+    if (result.invalid == true) {
       setInvalidName(true);
-    } else if (/[\\/:*?"<>|]/.test(name)) {
-      setNameMessage('Cannot contain these characters: \\ / : * ? " < > |');
-      setInvalidName(true);
-    } else if (name.startsWith(".")) {
-      setNameMessage("Cannot start with ' . '");
-      setInvalidName(true);
+      setNameMessage(result.message);
     } else {
-      setComputerName(name);
       setInvalidName(false);
+      setComputerName(input);
     }
   };
 
   const ipHandler = (e) => {
-    const ip = e.target.value;
-    const ipPattern = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
-    if (!ipPattern.test(ip)) {
+    const input = e.target.value;
+    if (Utils.ipHandler(input)) {
       setInvalidIp(true);
     } else {
-      setIpAddress(ip);
       setInvalidIp(false);
+      setIpAddress(input);
     }
   };
 

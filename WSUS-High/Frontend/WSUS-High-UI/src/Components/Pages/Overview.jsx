@@ -6,26 +6,21 @@ import {
   Row,
   Col,
   Card,
-  Button,
-  Spinner,
   CardHeader,
   CardBody,
 } from "react-bootstrap";
+import TitleCard from "../Cards/TitleCard";
+import Utils from "../../Utils/Utils";
 // import { API_URL } from "../../Utils/Settings";
-// import Utils from "../../Utils/Utils";
 
 const Overview = (props) => {
-  const { checkConnection, apiConnection, dbConnection, updateTime } = props;
+  const { checkConnection, apiConnection, dbConnection } = props;
   const [isLoading, setLoading] = useState(false);
-
-  const simulateLoading = () => {
-    return new Promise((resolve) => setTimeout(resolve, 1000));
-  };
 
   const handleRefresh = () => {
     setLoading(true);
     checkConnection();
-    simulateLoading().then(() => {
+    Utils.simulateLoading().then(() => {
       setLoading(false);
     });
   };
@@ -38,32 +33,12 @@ const Overview = (props) => {
     <Container fluid>
       <Row className="g-2">
         <Col xs="12">
-          <Card className="px-3 py-2">
-            <Row className="align-items-center">
-              <Col as="h2" xs="auto" className="title m-0">
-                <FontAwesomeIcon icon="house" className="me-2" />
-                Overview
-              </Col>
-              <Col xs="auto">
-                <span>
-                  <b>Last updated:</b> {updateTime}
-                </span>
-              </Col>
-              <Col className="text-end">
-                <Button
-                  variant="primary"
-                  onClick={handleRefresh}
-                  className="mb-0"
-                >
-                  {isLoading ? (
-                    <Spinner animation="border" role="status" size="sm" />
-                  ) : (
-                    <FontAwesomeIcon icon="rotate" />
-                  )}
-                </Button>
-              </Col>
-            </Row>
-          </Card>
+          <TitleCard
+            title={"Overview"}
+            icon={"house"}
+            handleRefresh={handleRefresh}
+            isLoading={isLoading}
+          />
         </Col>
 
         {/* Partially Working */}

@@ -97,7 +97,7 @@ const App = () => {
                   checkConnection={checkConnection}
                   apiConnection={apiConnection}
                   dbConnection={dbConnection}
-                  updateTime={updateTime}
+                  /*updateTime={updateTime}*/
                 />
               }
             />
