@@ -1,48 +1,34 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import SideBarButton from "./SideBarButton";
 
 const SideBar = () => {
+  const [activeButton, setActiveButton] = useState("Overview");
+
+  const buttonData = [
+    { title: "Overview", icon: "house", testId: "overviewBtn" },
+    { title: "Updates", icon: "file-arrow-down", testId: "updatesBtn" },
+    { title: "Clients", icon: "network-wired", testId: "clientsBtn" },
+    { title: "Sync Settings", icon: "rotate", testId: "syncsettingsBtn" },
+    { title: "Activity", icon: "clock-rotate-left", testId: "activityBtn" },
+  ];
+
+  const handleClick = (clickedTitle) => {
+    setActiveButton(clickedTitle);
+  };
+
   return (
     <Container bg="black" className="SideBar">
       <Row>
-        <Col xs="12">
-          <Link to="/" className="btn nav-button" data-testid="overviewBtn">
-            <FontAwesomeIcon icon="house" className="nav-icon me-4" />
-            Overview
-          </Link>
-        </Col>
-        <Col xs="12">
-          <Link to="/Updates" className="btn nav-button">
-            <FontAwesomeIcon icon="file-arrow-down" className="nav-icon me-4" />
-            Updates
-          </Link>
-        </Col>
-        <Col xs="12">
-          <Link
-            to="/Clients"
-            className="btn nav-button"
-            data-testid="clientsBtn"
-          >
-            <FontAwesomeIcon icon="network-wired" className="nav-icon me-4" />
-            Clients
-          </Link>
-        </Col>
-        <Col xs="12">
-          <Link to="/Syncsettings" className="btn nav-button">
-            <FontAwesomeIcon icon="rotate" className="nav-icon me-4" />
-            Sync Settings
-          </Link>
-        </Col>
-        <Col xs="12">
-          <Link to="/Activity" className="btn nav-button">
-            <FontAwesomeIcon
-              icon="clock-rotate-left"
-              className="nav-icon me-4"
+        {buttonData.map((buttonProps) => (
+          <Col xs="12" key={buttonProps.title}>
+            <SideBarButton
+              {...buttonProps}
+              isActive={activeButton === buttonProps.title}
+              onClick={() => handleClick(buttonProps.title)}
             />
-            Activity
-          </Link>
-        </Col>
+          </Col>
+        ))}
       </Row>
     </Container>
   );

@@ -58,6 +58,13 @@ span {
 [class*="nav-button"]:focus {
   color: #fff !important;
   background: rgba(255, 0, 0, 0.8) !important;
+  border-color: transparent !important;
+}
+
+[class*="nav-button active"] {
+  color: #fff !important;
+  background: rgba(255, 0, 0, 0.8) !important;
+  border-color: transparent !important;
 }
 
 [class*="btn-primary"] {
