@@ -63,19 +63,23 @@ const Clients = (props) => {
   };
 
   useEffect(() => {
-    console.log("Overview mounted");
+    console.log("Clients mounted");
 
     getComputers();
   }, []);
 
-  // TODO: Find a solution for extra buttons in
   return (
     <Container fluid>
       <Row className="g-2">
         <Col xs="12">
           <Card className="px-3 py-2">
             <Row className="align-items-center">
-              <Col as="h3" xs="auto" className="title m-0">
+              <Col
+                as="h3"
+                xs="auto"
+                className="title m-0"
+                data-testid="pageTitle"
+              >
                 <FontAwesomeIcon icon="network-wired" className="me-2" />
                 Clients
               </Col>

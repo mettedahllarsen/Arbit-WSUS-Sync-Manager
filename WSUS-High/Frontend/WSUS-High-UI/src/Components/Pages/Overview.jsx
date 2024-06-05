@@ -70,11 +70,14 @@ const Overview = (props) => {
                     <FontAwesomeIcon icon="circle-play" /> <b>WSUSHigh API:</b>{" "}
                   </span>
                   {apiConnection ? (
-                    <span className="text-success">
+                    <span
+                      className="text-success"
+                      data-testid="apiStatusResult"
+                    >
                       <b>Online</b>
                     </span>
                   ) : (
-                    <span className="text-danger">
+                    <span className="text-danger" data-testid="apiStatusResult">
                       <b>Offline</b>
                     </span>
                   )}

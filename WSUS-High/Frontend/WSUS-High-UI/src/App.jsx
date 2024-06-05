@@ -80,7 +80,6 @@ const App = () => {
     }
   };
 
-  // TODO: Add the rest of pages
   return (
     <Container fluid className="gx-0 Content">
       <Header title={<HeaderTitle />} content={<HeaderNav />} />
