@@ -2,9 +2,9 @@
 
 namespace WSUSLowAPI.Repositories
 {
-    public interface IUpdateMetadataRepository
+    public interface IUpdateDataRepository
     {
-        IEnumerable<UpdateMetadata> GetAll();
+        IEnumerable<UpdateData> GetAll();
         string FetchToDb(string? titleFilter);
     }
 }

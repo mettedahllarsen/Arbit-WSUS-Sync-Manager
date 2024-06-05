@@ -7,9 +7,9 @@ namespace WSUSLowAPI.Contexts
     {
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UpdateMetadata>().Property(p => p.UpdateID).HasColumnName("UpdateID");
+            modelBuilder.Entity<UpdateData>().Property(p => p.UpdateID).HasColumnName("UpdateID");
         }
-        public DbSet<UpdateMetadata> UpdateMetadata { get; set; }
+        public DbSet<UpdateData> UpdateMetadata { get; set; }
 
     }
 }

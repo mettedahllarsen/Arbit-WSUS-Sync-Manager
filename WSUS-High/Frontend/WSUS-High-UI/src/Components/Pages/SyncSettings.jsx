@@ -4,11 +4,11 @@ import { Container, Row, Col } from "react-bootstrap";
 import TitleCard from "../Cards/TitleCard";
 import Utils from "../../Utils/Utils";
 
-const Updates = () => {
+const SyncSettings = () => {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log("Updates mounted");
+    console.log("SyncSettings mounted");
   }, []);
 
   const handleRefresh = () => {
@@ -20,11 +20,11 @@ const Updates = () => {
 
   return (
     <Container fluid>
-      <Row className="g-2">
+      <Row>
         <Col>
           <TitleCard
-            title={"Updates"}
-            icon={"file-arrow-down"}
+            title={"Syncronization Settings"}
+            icon={"rotate"}
             handleRefresh={handleRefresh}
             isLoading={isLoading}
           />
@@ -34,4 +34,4 @@ const Updates = () => {
   );
 };
 
-export default Updates;
+export default SyncSettings;

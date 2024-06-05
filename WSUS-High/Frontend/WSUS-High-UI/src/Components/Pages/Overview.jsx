@@ -1,122 +1,135 @@
-//import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Container,
   Row,
   Col,
   Card,
-  Button,
-  Spinner,
-  Table,
+  CardHeader,
+  CardBody,
 } from "react-bootstrap";
-import { API_URL } from "../../Utils/Settings";
+import TitleCard from "../Cards/TitleCard";
 import Utils from "../../Utils/Utils";
+// import { API_URL } from "../../Utils/Settings";
 
-const Overview = () => {
+const Overview = (props) => {
+  const { checkConnection, apiConnection, dbConnection } = props;
   const [isLoading, setLoading] = useState(false);
-  const [computers, setComputers] = useState([]);
-
-  const getComputers = async () => {
-    try {
-      const response = await axios.get(API_URL + "/api/computers");
-      const computers = response.data;
-      setComputers(computers);
-    } catch (error) {
-      Utils.handleAxiosError(error);
-    }
-  };
 
   const handleRefresh = () => {
-    if (isLoading) {
+    setLoading(true);
+    checkConnection();
+    Utils.simulateLoading().then(() => {
       setLoading(false);
-    } else {
-      setLoading(true);
-    }
+    });
   };
 
   useEffect(() => {
     console.log("Overview mounted");
-
-    getComputers();
   }, []);
 
   return (
-    <Container fluid className="px-2 py-3">
+    <Container fluid>
       <Row className="g-2">
         <Col xs="12">
-          <Card className="p-2">
-            <Row className="align-items-center">
-              <Col as="h3" xs="auto" className="title m-0">
-                <FontAwesomeIcon icon="house" className="me-2" />
-                Overview
-              </Col>
-              <Col xs="auto">
-                <b>Last Updated:</b>{" "}
-                {new Date().toLocaleString("en-GB", {
-                  formatMatcher: "best fit",
-                })}
-              </Col>
-              <Col className="text-end">
-                <Button variant="primary" onClick={handleRefresh}>
-                  {isLoading ? (
-                    <Spinner animation="border" role="status" size="sm" />
+          <TitleCard
+            title={"Overview"}
+            icon={"house"}
+            handleRefresh={handleRefresh}
+            isLoading={isLoading}
+          />
+        </Col>
+
+        {/* Partially Working */}
+        <Col xs="4">
+          <Card>
+            <CardHeader
+              as="h3"
+              className={
+                dbConnection
+                  ? "bg-success text-white px-2"
+                  : "bg-danger text-white px-2"
+              }
+            >
+              <Row>
+                <Col>Status</Col>
+                <Col xs="auto">
+                  {dbConnection ? (
+                    <FontAwesomeIcon icon="circle-check" />
                   ) : (
-                    <FontAwesomeIcon icon="rotate" />
+                    <FontAwesomeIcon icon="circle-xmark" />
                   )}
-                </Button>
-              </Col>
-            </Row>
+                </Col>
+              </Row>
+            </CardHeader>
+            <CardBody className="p-2 text-center">
+              <Row className="g-4">
+                <Col md={12} xl={12}>
+                  <span className="title">
+                    <FontAwesomeIcon icon="circle-play" /> <b>WSUSHigh API:</b>{" "}
+                  </span>
+                  {apiConnection ? (
+                    <span
+                      className="text-success"
+                      data-testid="apiStatusResult"
+                    >
+                      <b>Online</b>
+                    </span>
+                  ) : (
+                    <span className="text-danger" data-testid="apiStatusResult">
+                      <b>Offline</b>
+                    </span>
+                  )}
+                </Col>
+
+                <Col md={12} xl={12}>
+                  <span className="title">
+                    <FontAwesomeIcon icon="circle-play" /> <b>WSUSHigh DB:</b>{" "}
+                  </span>
+                  {dbConnection ? (
+                    <span className="text-success">
+                      <b>Online</b>
+                    </span>
+                  ) : (
+                    <span className="text-danger">
+                      <b>Offline</b>
+                    </span>
+                  )}
+                </Col>
+              </Row>
+            </CardBody>
           </Card>
         </Col>
-        <Col>
-          <Card className="p-2">
-            <h5>Computers</h5>
-            <Table striped bordered responsive hover>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Name</th>
-                  <th>IP</th>
-                  <th>OS Version</th>
-                  <th>Last Connections</th>
-                </tr>
-              </thead>
-              <tbody>
-                {computers.map((computer, index) => (
-                  <tr key={index}>
-                    <td>{computer.computerID}</td>
-                    <td>{computer.computerName}</td>
-                    <td>{computer.ipAddress}</td>
-                    <td>{computer.osVersion}</td>
-                    <td>
-                      {computer.lastConnection
-                        ? new Date(computer.lastConnection).toLocaleString(
-                            "en-GB",
-                            {
-                              year: "numeric",
-                              month: "numeric",
-                              day: "numeric",
-                              hour: "numeric",
-                              minute: "numeric",
-                              second: "numeric",
-                            }
-                          )
-                        : "N/A"}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-            {/* Backend, Database osv. */}
+
+        {/* Not Working */}
+        <Col xs="4">
+          <Card>
+            <CardHeader as="h3" className="title text-center">
+              Latest Syncronization
+            </CardHeader>
+            <CardBody className="p-2 text-center">
+              <span>27/05/2024, 12:42:23</span>
+            </CardBody>
+          </Card>
+        </Col>
+
+        {/* Not Working */}
+        <Col xs="4" className="h-100">
+          <Card className="">
+            <CardHeader as="h3" className="title text-center">
+              Available Updates
+            </CardHeader>
+            <CardBody className="p-2 text-center">
+              <span>
+                <b>7 updates are available</b>
+              </span>
+            </CardBody>
           </Card>
         </Col>
       </Row>
     </Container>
   );
 };
-
-//Overview.propTypes = {};
 
 export default Overview;

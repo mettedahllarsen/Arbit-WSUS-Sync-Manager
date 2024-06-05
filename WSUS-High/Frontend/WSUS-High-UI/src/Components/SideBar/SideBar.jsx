@@ -1,42 +1,36 @@
-import {
-  faClockRotateLeft,
-  faFileArrowDown,
-  faNetworkWired,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Navbar, Nav } from "react-bootstrap";
+import { useState } from "react";
+import { Container, Row, Col } from "react-bootstrap";
+import SideBarButton from "./SideBarButton";
 
 const SideBar = () => {
+  const [activeButton, setActiveButton] = useState("Overview");
+
+  const buttonData = [
+    { title: "Overview", icon: "house", testId: "overviewBtn" },
+    { title: "Updates", icon: "file-arrow-down", testId: "updatesBtn" },
+    { title: "Clients", icon: "network-wired", testId: "clientsBtn" },
+    { title: "Sync Settings", icon: "rotate", testId: "syncsettingsBtn" },
+    { title: "Activity", icon: "clock-rotate-left", testId: "activityBtn" },
+  ];
+
+  const handleClick = (clickedTitle) => {
+    setActiveButton(clickedTitle);
+  };
+
   return (
-    <Navbar bg="black" className="SideBar" variant="dark">
-      <Navbar.Collapse>
-        <Nav>
-          <Nav.Link href="/" className="nav-button">
-            <FontAwesomeIcon icon="house" className="nav-icon me-4" />
-            Overview
-          </Nav.Link>
-          <Nav.Link href="/updates" className="nav-button">
-            <FontAwesomeIcon icon={faFileArrowDown} className="nav-icon me-4" />
-            Updates
-          </Nav.Link>
-          <Nav.Link href="/updates" className="nav-button">
-            <FontAwesomeIcon icon={faNetworkWired} className="nav-icon me-4" />
-            Clients
-          </Nav.Link>
-          <Nav.Link href="/updates" className="nav-button">
-            <FontAwesomeIcon icon="rotate" className="nav-icon me-4" />
-            Sync {/* Find ud af navn */}
-          </Nav.Link>
-          <Nav.Link href="/updates" className="nav-button">
-            <FontAwesomeIcon
-              icon={faClockRotateLeft}
-              className="nav-icon me-4"
+    <Container bg="black" className="SideBar">
+      <Row>
+        {buttonData.map((buttonProps) => (
+          <Col xs="12" key={buttonProps.title}>
+            <SideBarButton
+              {...buttonProps}
+              isActive={activeButton === buttonProps.title}
+              onClick={() => handleClick(buttonProps.title)}
             />
-            History
-          </Nav.Link>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
+          </Col>
+        ))}
+      </Row>
+    </Container>
   );
 };
 

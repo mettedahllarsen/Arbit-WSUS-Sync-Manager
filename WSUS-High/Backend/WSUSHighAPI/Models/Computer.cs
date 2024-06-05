@@ -3,11 +3,11 @@
     // Model class for the computer
     public class Computer
     {
-        public int ComputerID { get; set; }
-        public string ComputerName { get; set; }
-        public string IPAddress { get; set; }
-        public string OSVersion { get; set; }
-        public DateTime LastConnection { get; set; }
+        public int? ComputerID { get; set; }
+        public string? ComputerName { get; set; }
+        public string? IPAddress { get; set; }
+        public string? OSVersion { get; set; }
+        public DateTime? LastConnection { get; set; }
 
         // Override of the ToString() method to return a string representation of the computer object
         public override string ToString()

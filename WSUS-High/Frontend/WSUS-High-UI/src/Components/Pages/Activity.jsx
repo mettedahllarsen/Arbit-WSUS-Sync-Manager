@@ -4,11 +4,11 @@ import { Container, Row, Col } from "react-bootstrap";
 import TitleCard from "../Cards/TitleCard";
 import Utils from "../../Utils/Utils";
 
-const Updates = () => {
+const Activity = () => {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log("Updates mounted");
+    console.log("Activity mounted");
   }, []);
 
   const handleRefresh = () => {
@@ -23,8 +23,8 @@ const Updates = () => {
       <Row className="g-2">
         <Col>
           <TitleCard
-            title={"Updates"}
-            icon={"file-arrow-down"}
+            title={"Activity"}
+            icon={"clock-rotate-left"}
             handleRefresh={handleRefresh}
             isLoading={isLoading}
           />
@@ -34,4 +34,4 @@ const Updates = () => {
   );
 };
 
-export default Updates;
+export default Activity;

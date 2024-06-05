@@ -8,15 +8,15 @@ namespace WSUSLowAPI.Controllers
     [EnableCors("AllowAll")]
     [Route("api/[controller]")]
     [ApiController]
-    public class UpdateMetadatasController : ControllerBase
+    public class UpdateDatasController : ControllerBase
     {
-        private readonly IUpdateMetadataRepository _repository;
-        public UpdateMetadatasController(IUpdateMetadataRepository repository)
+        private readonly IUpdateDataRepository _repository;
+        public UpdateDatasController(IUpdateDataRepository repository)
         {
             _repository = repository;
         }
 
-        // GET: api/<UpdateMetadatasController>
+        // GET: api/<UpdateDatasController>
         [HttpGet]
         public string Welcome()
         {
@@ -26,7 +26,7 @@ namespace WSUSLowAPI.Controllers
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
-        // GET: api/<UpdateMetadatasController>/fetch
+        // GET: api/<UpdateDatasController>/fetch
         [HttpPost("fetch")]
         public IActionResult FetchMetadata([FromBody] FetchFilter newFilter)
         {
@@ -37,7 +37,7 @@ namespace WSUSLowAPI.Controllers
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        // GET: api/<UpdateMetadatasController>/get
+        // GET: api/<UpdateDatasController>/get
         [HttpGet("get")]
         public IActionResult GetAll()
         {

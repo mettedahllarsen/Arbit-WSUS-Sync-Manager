@@ -1,32 +1,18 @@
-using Microsoft.EntityFrameworkCore;
-using WSUSLowAPI.Contexts;
-using WSUSLowAPI.Repositories;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var MyCors = "_myCors";
+
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", builder =>
-    {
-        builder.AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader();
-    });
+    options.AddPolicy(name: MyCors,
+                              policy =>
+                              {
+                                  policy.AllowAnyOrigin()
+                                  .AllowAnyMethod()
+                                  .AllowAnyHeader();
+                              });
 });
-
-bool useSql = true;
-if (useSql)
-{
-    builder.Services.AddDbContext<WSUSDbContext>(options =>
-        options.UseSqlServer(builder.Configuration["ConnectionStrings:MikkelConnection"]));
-    builder.Services.AddScoped<IUpdateMetadataRepository, UpdateMetadataRepositoryDb>();
-
-}
-else
-{
-    //builder.Services.AddSingleton<IUpdateMetadataRepository>(new UpdateMetadataRepository());
-}
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -42,6 +28,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.UseCors("AllowAll");
+app.UseCors(MyCors);
 
 app.Run();

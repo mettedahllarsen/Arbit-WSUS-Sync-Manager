@@ -1,10 +1,4 @@
-import { useEffect } from "react";
-
 const HeaderTitle = () => {
-  useEffect(() => {
-    console.log("Component HeaderTitle mounted");
-  }, []);
-
   return (
     <div className="text-start ms-4">
       <h5 className="text-dark">
