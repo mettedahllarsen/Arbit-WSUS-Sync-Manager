@@ -4,7 +4,7 @@ using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
 
 
-namespace WSUSHighUITests
+namespace WSUSHighUITests.ChromeTests
 {
     [TestFixture]
     public class OverviewTests
@@ -35,11 +35,9 @@ namespace WSUSHighUITests
             driver.Navigate().GoToUrl("http://localhost:3001");
             wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("a[data-testid='overviewBtn']"))).Click();
 
-            // Find the refresh button
             var refreshButton = wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("button[data-testid='refreshBtn']")));
             refreshButton.Click();
 
-            // Wait for either the refresh icon to disappear or a specific element to appear 
             wait.Until(d =>
             {
                 try
@@ -48,14 +46,12 @@ namespace WSUSHighUITests
                 }
                 catch (NoSuchElementException)
                 {
-                    return true; // The icon is no longer displayed
+                    return true;
                 }
             });
 
-            // Re-locate the API status element (it might have been replaced during the refresh)
             var apiStatus = wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("span[data-testid='apiStatusResult']")));
 
-            // Assert the updated API status
             Assert.That(apiStatus.Text, Does.Contain("Online"), "WSUS API is not online");
         }
     }

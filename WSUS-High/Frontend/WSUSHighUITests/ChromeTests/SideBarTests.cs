@@ -3,7 +3,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
-namespace WSUSHighUITest
+namespace WSUSHighUITests.ChromeTests
 {
     [TestFixture]
     public class SideBarTests
@@ -33,14 +33,11 @@ namespace WSUSHighUITest
         {
             driver.Navigate().GoToUrl("http://localhost:3001");
 
-            // Find and click the Clients button using ExpectedConditions
             var clientsButton = wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("a[data-testid='clientsBtn']")));
             clientsButton.Click();
 
-            // Wait for the page title to be visible using ExpectedConditions
             var pageTitle = wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("h3[data-testid='pageTitle']")));
 
-            // Assert that the page title text contains "Clients"
             Assert.That(pageTitle.Text, Does.Contain("Clients"), "Failed to navigate to the Clients page.");
         }
     }

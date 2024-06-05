@@ -3,7 +3,7 @@ using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
 
-namespace WSUSHighUITests
+namespace WSUSHighUITests.ChromeTests
 {
     public class ClientsTests
     {
