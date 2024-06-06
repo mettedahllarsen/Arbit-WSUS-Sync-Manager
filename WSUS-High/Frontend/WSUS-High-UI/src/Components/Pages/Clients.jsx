@@ -13,8 +13,8 @@ import {
 } from "react-bootstrap";
 import { API_URL } from "../../Utils/Settings";
 import Utils from "../../Utils/Utils";
-import AddClientModal from "../Modals/AddClientModal";
-import ConfirmDeleteModal from "../Modals/ConfirmDeleteModal";
+import AddClientModal from "./Modals/AddClientModal";
+import ConfirmDeleteModal from "./Modals/ConfirmDeleteModal";
 import DetailedCard from "../Cards/DetailedCard";
 
 const Clients = (props) => {

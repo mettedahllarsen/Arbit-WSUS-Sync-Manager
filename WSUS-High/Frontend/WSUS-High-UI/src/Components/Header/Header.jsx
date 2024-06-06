@@ -8,7 +8,7 @@ const Header = (props) => {
     console.log("Component Header mounted");
   }, []);
 
-  // TODO: Use of actual logo
+  // TODO: Use logo component
   return (
     <Navbar className="px-2 HeaderBar">
       <Stack direction="horizontal" gap={2} className="w-100">
