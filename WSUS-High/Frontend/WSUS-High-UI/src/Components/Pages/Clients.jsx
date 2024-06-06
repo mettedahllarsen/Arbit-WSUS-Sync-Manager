@@ -83,24 +83,30 @@ const Clients = (props) => {
                 <FontAwesomeIcon icon="network-wired" className="me-2" />
                 Clients
               </Col>
-              <Col xs="auto" className="biggerText">
+              <Col xs="auto" className="bigText">
                 <b>Last updated:</b> {updateTime}
               </Col>
-              <Col className="text-end">
-                <Button
-                  className="me-2"
-                  onClick={() => setShowAddClientModal(true)}
-                  disabled={!dbConnection && !apiConnection}
-                >
-                  <FontAwesomeIcon icon="plus" /> New Client
-                </Button>
-                <Button variant="primary" onClick={handleRefresh}>
-                  {isLoading ? (
-                    <Spinner animation="border" role="status" size="sm" />
-                  ) : (
-                    <FontAwesomeIcon icon="rotate" />
-                  )}
-                </Button>
+              <Col>
+                <Row className="g-2 justify-content-end">
+                  <Col xs="auto">
+                    <Button
+                      onClick={() => setShowAddClientModal(true)}
+                      disabled={!dbConnection && !apiConnection}
+                    >
+                      <FontAwesomeIcon icon="plus" />{" "}
+                      <span className="buttonText">Add Client</span>
+                    </Button>
+                  </Col>
+                  <Col xs="auto">
+                    <Button onClick={handleRefresh}>
+                      {isLoading ? (
+                        <Spinner animation="border" role="status" size="sm" />
+                      ) : (
+                        <FontAwesomeIcon icon="rotate" />
+                      )}
+                    </Button>
+                  </Col>
+                </Row>
               </Col>
             </Row>
           </Card>

@@ -31,6 +31,10 @@ body {
   margin-top: 10% !important;
 }
 
+.bigText {
+  font-size: medium;
+}
+
 .biggerText {
   font-size: large;
 }
@@ -92,6 +96,7 @@ body {
 
 [class*="btn-danger"]:hover {
   background: rgb(170, 0, 0) !important;
+  border-color: rgb(200, 0, 0, 0.20) !important;
 }
 
 [class*="bg-success"] {
@@ -100,4 +105,11 @@ body {
 
 [class*="bg-danger"] {
   background: rgb(200, 0, 0) !important;
+}
+
+
+@media (max-width: 847px) {
+  .buttonText {
+    display: none;
+  }
 }
