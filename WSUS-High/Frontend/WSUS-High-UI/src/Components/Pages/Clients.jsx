@@ -83,10 +83,8 @@ const Clients = (props) => {
                 <FontAwesomeIcon icon="network-wired" className="me-2" />
                 Clients
               </Col>
-              <Col xs="auto">
-                <span>
-                  <b>Last updated:</b> {updateTime}
-                </span>
+              <Col xs="auto" className="biggerText">
+                <b>Last updated:</b> {updateTime}
               </Col>
               <Col className="text-end">
                 <Button

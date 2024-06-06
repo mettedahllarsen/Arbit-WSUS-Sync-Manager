@@ -5,11 +5,11 @@ const HeaderTitle = () => {
         <strong>WSUS HIGH UI</strong>
       </h5>
 
-      <span className="text-dark">
+      <span className="biggerText text-dark">
         <strong>Hostname: </strong>
       </span>
 
-      <span className="text-secondary">
+      <span className="biggerText text-secondary">
         <strong>{window.location.hostname}</strong>
       </span>
     </div>

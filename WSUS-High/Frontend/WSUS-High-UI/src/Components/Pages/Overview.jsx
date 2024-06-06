@@ -66,33 +66,36 @@ const Overview = (props) => {
             <CardBody className="p-2 text-center">
               <Row className="g-4">
                 <Col md={12} xl={12}>
-                  <span className="title">
+                  <span className="title biggerText">
                     <FontAwesomeIcon icon="circle-play" /> <b>WSUSHigh API:</b>{" "}
                   </span>
                   {apiConnection ? (
                     <span
-                      className="text-success"
+                      className="text-success biggerText"
                       data-testid="apiStatusResult"
                     >
                       <b>Online</b>
                     </span>
                   ) : (
-                    <span className="text-danger" data-testid="apiStatusResult">
+                    <span
+                      className="text-danger biggerText"
+                      data-testid="apiStatusResult"
+                    >
                       <b>Offline</b>
                     </span>
                   )}
                 </Col>
 
                 <Col md={12} xl={12}>
-                  <span className="title">
+                  <span className="title biggerText">
                     <FontAwesomeIcon icon="circle-play" /> <b>WSUSHigh DB:</b>{" "}
                   </span>
                   {dbConnection ? (
-                    <span className="text-success">
+                    <span className="text-success biggerText">
                       <b>Online</b>
                     </span>
                   ) : (
-                    <span className="text-danger">
+                    <span className="text-danger biggerText">
                       <b>Offline</b>
                     </span>
                   )}
@@ -108,8 +111,8 @@ const Overview = (props) => {
             <CardHeader as="h3" className="title text-center">
               Latest Syncronization
             </CardHeader>
-            <CardBody className="p-2 text-center">
-              <span>27/05/2024, 12:42:23</span>
+            <CardBody className="p-2 text-center biggerText">
+              27/05/2024, 12:42:23
             </CardBody>
           </Card>
         </Col>
@@ -120,10 +123,8 @@ const Overview = (props) => {
             <CardHeader as="h3" className="title text-center">
               Available Updates
             </CardHeader>
-            <CardBody className="p-2 text-center">
-              <span>
-                <b>7 updates are available</b>
-              </span>
+            <CardBody className="p-2 text-center biggerText">
+              <b>7 updates are available</b>
             </CardBody>
           </Card>
         </Col>

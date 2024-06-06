@@ -13,7 +13,7 @@ const TitleCard = (props) => {
           {title}
         </Col>
         <Col xs="auto">
-          <span>
+          <span className="biggerText">
             <b>Last updated</b>:{" "}
             {new Date().toLocaleString("en-GB", {
               formatMatcher: "best fit",
