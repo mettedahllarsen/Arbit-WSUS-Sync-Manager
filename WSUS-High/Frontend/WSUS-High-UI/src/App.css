@@ -112,4 +112,17 @@ body {
   .buttonText {
     display: none;
   }
+  .nav-icon {
+    display: none;
+  }
+  .Page {
+    margin-left: 150px;
+  }
+  .SideBar {
+    width: 150px;
+  }
+  .nav-button {
+    text-align: center;
+    padding-left: 0 !important;
+  }
 }
