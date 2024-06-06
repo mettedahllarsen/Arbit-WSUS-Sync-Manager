@@ -12,8 +12,8 @@ import {
   FormControl,
   Button,
 } from "react-bootstrap";
-import { API_URL } from "../../Utils/Settings";
-import Utils from "../../Utils/Utils";
+import { API_URL } from "../../../Utils/Settings";
+import Utils from "../../../Utils/Utils";
 
 const AddClientModal = (props) => {
   const { show, hide, handleRefresh } = props;

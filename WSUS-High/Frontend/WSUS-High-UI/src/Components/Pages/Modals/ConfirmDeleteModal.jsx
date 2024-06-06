@@ -9,8 +9,8 @@ import {
   Col,
 } from "react-bootstrap";
 import axios from "axios";
-import Utils from "../../Utils/Utils";
-import { API_URL } from "../../Utils/Settings";
+import Utils from "../../../Utils/Utils";
+import { API_URL } from "../../../Utils/Settings";
 
 const ConfirmDeleteModal = (props) => {
   const { show, hide, computer, handleRefresh } = props;
