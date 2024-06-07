@@ -14,6 +14,8 @@ import {
   faCircleXmark,
   faPlus,
   faTrashCan,
+  faCircleInfo,
+  faWindowMinimize,
 } from "@fortawesome/free-solid-svg-icons";
 import Header from "./Components/Header/Header";
 import HeaderNav from "./Components/Header/HeaderNav";
@@ -40,7 +42,9 @@ library.add(
   faCircleCheck,
   faCircleXmark,
   faPlus,
-  faTrashCan
+  faTrashCan,
+  faCircleInfo,
+  faWindowMinimize
 );
 
 const App = () => {

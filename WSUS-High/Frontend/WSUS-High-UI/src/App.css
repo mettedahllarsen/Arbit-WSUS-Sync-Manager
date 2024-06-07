@@ -30,7 +30,8 @@ body {
 }
 
 .modal-margin {
-  margin-top: 10%;
+  margin-top: 25vh;
+  margin-left: 100px;
 }
 
 .bigText {
@@ -51,11 +52,16 @@ body {
 }
 
 .text-red {
-  color: rgba(255, 0, 0, 0.8);
+  color: rgb(238, 42, 36);
+}
+
+.text-gray {
+  color: rgb(88, 89, 91);
 }
 
 .nav-button {
   font-size: 18px;
+  font-weight: 400;
   line-height: 40px;
   color: #999;
   cursor: pointer;
@@ -66,13 +72,16 @@ body {
   border-radius: 0;
 }
 
-.nav-button:hover,
-.nav-button:focus,
-.nav-button:active,
-.nav-button.btn.active,
 .nav-button:first-child:active {
+  border-color: transparent;
+  color: #999;
+}
+
+.nav-button:hover,
+.nav-button:first-child:hover,
+.nav-button.btn.active {
   color: #fff;
-  background-color: rgba(255, 0, 0, 0.8);
+  background-color: rgb(238, 42, 36);
   border-color: transparent;
 }
 
@@ -84,19 +93,21 @@ body {
   border-color: rgb(0, 65, 114);
 }
 
-.btn-primary:hover {
+.btn-primary:hover,
+.btn-primary:first-child:hover {
   background-color: rgb(0, 50, 89);
   border-color: rgb(0, 50, 89);
 }
 
-.btn-danger {
-  background-color: rgb(200, 0, 0);
-  border-color: rgb(200, 0, 0, 0.20);
+.btn-danger,
+.btn-danger:first-child:active {
+  background-color: rgb(238, 42, 36);
   transition: background-color 0.3s ease;
 }
 
-.btn-danger:hover {
-  background-color: rgb(160, 0, 0);
+.btn-danger:hover,
+.btn-danger:first-child:hover {
+  background-color: rgb(153, 16, 12);
 }
 
 .bg-success {
@@ -107,8 +118,7 @@ body {
   background-color: rgb(200, 0, 0) !important;
 }
 
-@media (max-width: 847px) {
-  .buttonText,
+@media (max-width: 848px) {
   .nav-icon {
       display: none;
     }

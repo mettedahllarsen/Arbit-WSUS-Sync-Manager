@@ -95,7 +95,7 @@ const DetailedCard = (props) => {
     <Card>
       <CardHeader className="mb-2">
         <Row>
-          <Col as={"h3"} className="title mb-0">
+          <Col as={"h5"} className="title mb-0">
             Actions
           </Col>
           <Col className="text-end">
@@ -156,10 +156,10 @@ const DetailedCard = (props) => {
               </Col>
             </Row>
           </Form>
-          <Row className="mb-4">
+          <Row>
             <Col xs="6">
               <Button
-                variant="primary"
+                variant="secondary"
                 className="w-100"
                 onClick={handleRevert}
                 disabled={!edit}

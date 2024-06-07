@@ -45,7 +45,7 @@ const Overview = (props) => {
         <Col xs="4">
           <Card>
             <CardHeader
-              as="h4"
+              as="h5"
               className={
                 dbConnection
                   ? "bg-success text-white px-2"
@@ -108,7 +108,7 @@ const Overview = (props) => {
         {/* Not Working */}
         <Col xs="4">
           <Card>
-            <CardHeader as="h4" className="title text-center">
+            <CardHeader as="h5" className="title text-center">
               Last sync
             </CardHeader>
             <CardBody className="p-2 text-center bigText">
@@ -120,7 +120,7 @@ const Overview = (props) => {
         {/* Not Working */}
         <Col xs="4">
           <Card>
-            <CardHeader as="h4" className="title text-center">
+            <CardHeader as="h5" className="title text-center">
               Available Updates
             </CardHeader>
             <CardBody className="p-2 text-center bigText">
