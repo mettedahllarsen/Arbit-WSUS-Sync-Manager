@@ -2,15 +2,15 @@ import { useEffect } from "react";
 import {
   Modal,
   ModalHeader,
-  ModalTitle,
   ModalBody,
+  ModalFooter,
   Button,
   Row,
   Col,
 } from "react-bootstrap";
 import axios from "axios";
-import Utils from "../../Utils/Utils";
-import { API_URL } from "../../Utils/Settings";
+import Utils from "../../../Utils/Utils";
+import { API_URL } from "../../../Utils/Settings";
 
 const ConfirmDeleteModal = (props) => {
   const { show, hide, computer, handleRefresh } = props;
@@ -37,30 +37,35 @@ const ConfirmDeleteModal = (props) => {
 
   return (
     <Modal show={show} onHide={() => hide()} className="modal-margin">
-      <ModalHeader>
-        <ModalTitle className="w-100 text-center">
-          Are you sure you want to delete <b>{computer.computerName}</b>?
-        </ModalTitle>
+      <ModalHeader className="p-2" closeButton>
+        Remove Client: #{computer.computerID}
       </ModalHeader>
-      <ModalBody className="text-center">
-        <Row>
-          <Col>
+      <ModalBody>
+        <h5 className="m-0">
+          <b>Are you sure you want to remove this client?</b>
+        </h5>
+        <b className="text-danger">This process cannot be undone!</b>
+      </ModalBody>
+      <ModalFooter className="p-1 pt-0">
+        <Row className="justify-content-center g-2">
+          <Col xs="auto">
+            <Button variant="outline-secondary" onClick={() => hide()}>
+              Cancel
+            </Button>
+          </Col>
+          <Col xs="auto">
             <Button
+              variant="danger"
               onClick={() => {
                 deleteComputer();
                 hide();
               }}
             >
-              Confirm
-            </Button>
-          </Col>
-          <Col>
-            <Button variant="danger" onClick={() => hide()}>
-              Cancel
+              Delete
             </Button>
           </Col>
         </Row>
-      </ModalBody>
+      </ModalFooter>
     </Modal>
   );
 };

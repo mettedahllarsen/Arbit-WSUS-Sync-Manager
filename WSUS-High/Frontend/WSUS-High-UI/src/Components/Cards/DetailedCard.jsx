@@ -1,5 +1,4 @@
-import { useState } from "react";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useCallback, useEffect, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -13,9 +12,8 @@ import {
   FormControl,
   Button,
 } from "react-bootstrap";
-import { API_URL } from "../../Utils/Settings";
 import Utils from "../../Utils/Utils";
-import axios from "axios";
+import ConfirmUpdateModal from "../Pages/Modals/ConfirmUpdateModal";
 
 const DetailedCard = (props) => {
   const { hide, computer, handleRefresh, deleteClient } = props;
@@ -28,74 +26,88 @@ const DetailedCard = (props) => {
   const [nameMessage, setNameMessage] = useState("");
 
   const [invalidIp, setInvalidIp] = useState(false);
+  const [ipMessage, setIpMessage] = useState("");
+
+  const [invalidOs, setInvalidOs] = useState(false);
+  const [osMessage, setOsMessage] = useState("");
 
   const [edit, setEdit] = useState(false);
+
+  const [updateValues, setUpdateValues] = useState({
+    name: null,
+    ip: null,
+    os: null,
+  });
+  const [showConirmUpdateModal, setShowConfirmUpdateModal] = useState(false);
+
+  const [noChanges, setNoChanges] = useState(true);
+
+  const dontUpdateSameValues = useCallback(() => {
+    if (
+      computer.computerName == computerName &&
+      computer.ipAddress == ipAddress &&
+      computer.osVersion == osVersion
+    ) {
+      setNoChanges(true);
+    } else {
+      setNoChanges(false);
+    }
+  }, [
+    computer.computerName,
+    computer.ipAddress,
+    computer.osVersion,
+    computerName,
+    ipAddress,
+    osVersion,
+  ]);
+
+  useEffect(() => {
+    dontUpdateSameValues();
+  }, [computerName, dontUpdateSameValues, ipAddress, osVersion]);
 
   const nameHandler = (e) => {
     const input = e.target.value;
     const result = Utils.nameHandler(input);
-    if (result.invalid == true) {
-      setInvalidName(true);
-      setNameMessage(result.message);
-    } else {
-      setInvalidName(false);
-      setComputerName(input);
-    }
+    setInvalidName(result.invalid);
+    result.invalid ? setNameMessage(result.message) : null;
+    setComputerName(input);
   };
 
   const ipHandler = (e) => {
     const input = e.target.value;
-    if (Utils.ipHandler(input)) {
-      setInvalidIp(true);
-    } else {
-      setInvalidIp(false);
-      setIpAddress(input);
-    }
+    const result = Utils.ipHandler(input);
+    setInvalidIp(result);
+    setIpMessage("Invalid Ip-address");
+    setIpAddress(input);
   };
 
   const osHandler = (e) => {
-    setOsVersion(e.target.value);
+    const input = e.target.value;
+    const result = Utils.osHandler();
+    setInvalidOs(result);
+    setOsMessage("Invalid OS-version");
+    setOsVersion(input);
   };
 
   const handleRevert = () => {
+    setShowConfirmUpdateModal(false);
+    setNoChanges(true);
     setEdit(false);
     setComputerName(computer.computerName);
     setIpAddress(computer.ipAddress);
     setOsVersion(computer.osVersion);
   };
 
-  const updateClient = async () => {
-    const url = API_URL + "/api/computers/" + computer.ComputerID;
-    const data = JSON.stringify({
-      ComputerName: computerName,
-      IPAddress: ipAddress,
-      OsVersion: osVersion,
-      LastConnection: new Date(),
-    });
-
-    try {
-      const response = await axios.request({
-        method: "put",
-        maxBodyLength: Infinity,
-        url: url,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: data,
-      });
-
-      handleRefresh();
-      console.log(response.data);
-    } catch (error) {
-      Utils.handleAxiosError(error);
-    }
+  const handleUpdateModal = () => {
+    setUpdateValues({ name: computerName, ip: ipAddress, os: osVersion });
+    setShowConfirmUpdateModal(true);
   };
 
   return (
     <Card>
       <CardHeader className="mb-2">
         <Row>
-          <Col as={"h3"} className="title mb-0">
+          <Col as={"h5"} className="title mb-0">
             Actions
           </Col>
           <Col className="text-end">
@@ -126,7 +138,7 @@ const DetailedCard = (props) => {
               </Col>
               <Col>
                 <FormGroup className="mb-3">
-                  <FormLabel>IP Address</FormLabel>
+                  <FormLabel>Ip-address</FormLabel>
                   <FormControl
                     type="text"
                     placeholder="Ip-Address"
@@ -137,43 +149,47 @@ const DetailedCard = (props) => {
                     readOnly={!edit}
                   />
                   <Form.Control.Feedback type="invalid">
-                    Invalid Ip-address
+                    {ipMessage}
                   </Form.Control.Feedback>
                 </FormGroup>
               </Col>
               <Col>
                 <FormGroup>
-                  <FormLabel>OS Version</FormLabel>
+                  <FormLabel>OS-version</FormLabel>
                   <FormControl
                     type="text"
-                    placeholder="OS Version"
+                    placeholder="OS-version"
                     defaultValue={osVersion}
                     onChange={osHandler}
+                    isInvalid={invalidOs}
                     disabled={!edit}
                     readOnly={!edit}
                   />
+                  <Form.Control.Feedback type="invalid">
+                    {osMessage}
+                  </Form.Control.Feedback>
                 </FormGroup>
               </Col>
             </Row>
           </Form>
-          <Row className="mb-4">
+          <Row>
             <Col xs="6">
               <Button
-                variant="primary"
+                variant="secondary"
                 className="w-100"
                 onClick={handleRevert}
                 disabled={!edit}
                 hidden={!edit}
               >
-                Undo Changes
+                {noChanges && noChanges ? "Go back" : "Undo changes"}
               </Button>
             </Col>
             <Col xs="6">
               <Button
                 variant="primary"
                 className="w-100"
-                onClick={updateClient}
-                disabled={!edit}
+                onClick={handleUpdateModal}
+                disabled={!edit || invalidName || invalidIp || noChanges}
                 hidden={!edit}
               >
                 Update
@@ -201,6 +217,18 @@ const DetailedCard = (props) => {
             </Col>
           </Row>
         </CardBody>
+      )}
+      {showConirmUpdateModal && (
+        <ConfirmUpdateModal
+          show={showConirmUpdateModal}
+          hide={() => {
+            setShowConfirmUpdateModal(false);
+          }}
+          computer={computer}
+          handleRevert={handleRevert}
+          handleRefresh={handleRefresh}
+          updates={updateValues}
+        />
       )}
     </Card>
   );

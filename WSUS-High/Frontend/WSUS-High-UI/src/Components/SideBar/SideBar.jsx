@@ -10,7 +10,7 @@ const SideBar = () => {
     { title: "Updates", icon: "file-arrow-down", testId: "updatesBtn" },
     { title: "Clients", icon: "network-wired", testId: "clientsBtn" },
     { title: "Sync Settings", icon: "rotate", testId: "syncsettingsBtn" },
-    { title: "Activity", icon: "clock-rotate-left", testId: "activityBtn" },
+    { title: "History", icon: "clock-rotate-left", testId: "historyBtn" },
   ];
 
   const handleClick = (clickedTitle) => {

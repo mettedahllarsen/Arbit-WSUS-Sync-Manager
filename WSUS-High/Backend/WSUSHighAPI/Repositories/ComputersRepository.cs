@@ -96,13 +96,24 @@ namespace WSUSHighAPI.Repositories
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand("UPDATE Computers SET ComputerName = @ComputerName, IPAddress = @IPAddress, OSVersion = @OSVersion, LastConnection = @LastConnection WHERE ComputerID = @ComputerID", connection);
-                command.Parameters.AddWithValue("@ComputerID", computer.ComputerID);
-                command.Parameters.AddWithValue("@ComputerName", computer.ComputerName);
-                command.Parameters.AddWithValue("@IPAddress", computer.IPAddress);
-                command.Parameters.AddWithValue("@OSVersion", computer.OSVersion);
-                command.Parameters.AddWithValue("@LastConnection", computer.LastConnection);
-                command.ExecuteNonQuery();
+                using (SqlCommand command = new SqlCommand("UPDATE Computers SET ComputerName = @ComputerName, IPAddress = @IPAddress, OSVersion = @OSVersion, LastConnection = @LastConnection WHERE ComputerID = @ComputerID", connection))
+                {
+                    command.Parameters.Add(new SqlParameter("@ComputerID", SqlDbType.Int) { Value = computer.ComputerID });
+                    command.Parameters.Add(new SqlParameter("@ComputerName", SqlDbType.NVarChar, 100) { Value = computer.ComputerName });
+                    command.Parameters.Add(new SqlParameter("@IPAddress", SqlDbType.NVarChar, 50) { Value = computer.IPAddress });
+                    command.Parameters.Add(new SqlParameter("@OSVersion", SqlDbType.NVarChar, 100) { Value = computer.OSVersion });
+
+                    if (computer.LastConnection.HasValue)
+                    {
+                        command.Parameters.Add(new SqlParameter("@LastConnection", SqlDbType.DateTime) { Value = computer.LastConnection });
+                    }
+                    else
+                    {
+                        command.Parameters.Add(new SqlParameter("@LastConnection", SqlDbType.DateTime) { Value = DBNull.Value });
+                    }
+
+                    command.ExecuteNonQuery();
+                }
             }
         }
 

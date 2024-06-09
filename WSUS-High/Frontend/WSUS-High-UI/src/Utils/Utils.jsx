@@ -40,6 +40,10 @@ export default class Utils {
     }
   }
 
+  static osHandler() {
+    return false;
+  }
+
   static simulateLoading() {
     return new Promise((resolve) => setTimeout(resolve, 1000));
   }

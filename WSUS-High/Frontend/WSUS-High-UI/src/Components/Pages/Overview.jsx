@@ -45,7 +45,7 @@ const Overview = (props) => {
         <Col xs="4">
           <Card>
             <CardHeader
-              as="h3"
+              as="h4"
               className={
                 dbConnection
                   ? "bg-success text-white px-2"
@@ -66,33 +66,36 @@ const Overview = (props) => {
             <CardBody className="p-2 text-center">
               <Row className="g-4">
                 <Col md={12} xl={12}>
-                  <span className="title">
+                  <span className="title bigText">
                     <FontAwesomeIcon icon="circle-play" /> <b>WSUSHigh API:</b>{" "}
                   </span>
                   {apiConnection ? (
                     <span
-                      className="text-success"
+                      className="text-success bigText"
                       data-testid="apiStatusResult"
                     >
                       <b>Online</b>
                     </span>
                   ) : (
-                    <span className="text-danger" data-testid="apiStatusResult">
+                    <span
+                      className="text-danger bigText"
+                      data-testid="apiStatusResult"
+                    >
                       <b>Offline</b>
                     </span>
                   )}
                 </Col>
 
                 <Col md={12} xl={12}>
-                  <span className="title">
+                  <span className="title bigText">
                     <FontAwesomeIcon icon="circle-play" /> <b>WSUSHigh DB:</b>{" "}
                   </span>
                   {dbConnection ? (
-                    <span className="text-success">
+                    <span className="text-success bigText">
                       <b>Online</b>
                     </span>
                   ) : (
-                    <span className="text-danger">
+                    <span className="text-danger bigText">
                       <b>Offline</b>
                     </span>
                   )}
@@ -105,25 +108,23 @@ const Overview = (props) => {
         {/* Not Working */}
         <Col xs="4">
           <Card>
-            <CardHeader as="h3" className="title text-center">
-              Latest Syncronization
+            <CardHeader as="h4" className="title text-center">
+              Last sync
             </CardHeader>
-            <CardBody className="p-2 text-center">
-              <span>27/05/2024, 12:42:23</span>
+            <CardBody className="p-2 text-center bigText">
+              27/05/2024, 12:42:23
             </CardBody>
           </Card>
         </Col>
 
         {/* Not Working */}
-        <Col xs="4" className="h-100">
-          <Card className="">
-            <CardHeader as="h3" className="title text-center">
+        <Col xs="4">
+          <Card>
+            <CardHeader as="h4" className="title text-center">
               Available Updates
             </CardHeader>
-            <CardBody className="p-2 text-center">
-              <span>
-                <b>7 updates are available</b>
-              </span>
+            <CardBody className="p-2 text-center bigText">
+              <b>7 updates are available</b>
             </CardBody>
           </Card>
         </Col>

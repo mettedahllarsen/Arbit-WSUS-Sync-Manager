@@ -8,12 +8,14 @@ const Header = (props) => {
     console.log("Component Header mounted");
   }, []);
 
-  // TODO: Use of actual logo
+  // TODO: Use logo component
   return (
     <Navbar className="px-2 HeaderBar">
-      <Stack direction="horizontal" gap={3} className="w-100">
-        <NavbarText>
-          <h1>Arbit Logo</h1>
+      <Stack direction="horizontal" gap={2} className="w-100">
+        <NavbarText className="ms-2 p-0">
+          <h1 className="text-dark logoText m-0">
+            a<span className="text-danger">r</span>bit
+          </h1>
         </NavbarText>
         <NavbarText>{title}</NavbarText>
         <NavbarText className="ms-auto">{content}</NavbarText>

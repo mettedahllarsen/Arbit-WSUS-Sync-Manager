@@ -14,6 +14,8 @@ import {
   faCircleXmark,
   faPlus,
   faTrashCan,
+  faCircleInfo,
+  faWindowMinimize,
 } from "@fortawesome/free-solid-svg-icons";
 import Header from "./Components/Header/Header";
 import HeaderNav from "./Components/Header/HeaderNav";
@@ -27,7 +29,7 @@ import { API_URL } from "./Utils/Settings";
 import Utils from "./Utils/Utils";
 import Clients from "./Components/Pages/Clients";
 import SyncSettings from "./Components/Pages/SyncSettings";
-import Activity from "./Components/Pages/Activity";
+import History from "./Components/Pages/History";
 
 library.add(
   faHouse,
@@ -40,7 +42,9 @@ library.add(
   faCircleCheck,
   faCircleXmark,
   faPlus,
-  faTrashCan
+  faTrashCan,
+  faCircleInfo,
+  faWindowMinimize
 );
 
 const App = () => {
@@ -113,7 +117,7 @@ const App = () => {
               }
             />
             <Route path="/syncsettings" element={<SyncSettings />} />
-            <Route path="/activity" element={<Activity />} />
+            <Route path="/history" element={<History />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Col>
