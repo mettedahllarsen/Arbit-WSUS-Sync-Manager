@@ -41,22 +41,24 @@ namespace WSUSHighAPI.Controllers
             return CreatedAtAction(nameof(Get), new { id = computer.ComputerID }, computer);
         }
 
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Computer computer)
         {
-            if (id != computer.ComputerID)
+            if (computer == null)
             {
-                return BadRequest("Computer ID in the URL does not match the ID in the request body.");
+                return BadRequest("Computer object is null.");
             }
-            _computersRepository.UpdateComputer(computer);
-            return NoContent();
-        }
-
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            _computersRepository.DeleteComputer(id);
-            return NoContent();
+            else if (id != computer.ComputerID)
+            {
+                return BadRequest("Computer ID in the URL does not match the ID in the request body:" + $"URL: {id}." + $"Body: {computer.ComputerID}.");
+            }
+            else
+            {
+                _computersRepository.UpdateComputer(computer);
+                return Ok("Computer updated successfully");
+            }
         }
     }
 }
