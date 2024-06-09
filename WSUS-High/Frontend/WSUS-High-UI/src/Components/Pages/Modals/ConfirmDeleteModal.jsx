@@ -38,13 +38,13 @@ const ConfirmDeleteModal = (props) => {
   return (
     <Modal show={show} onHide={() => hide()} className="modal-margin">
       <ModalHeader className="p-2" closeButton>
-        Remove Client
+        Remove Client: #{computer.computerID}
       </ModalHeader>
       <ModalBody>
-        <h5>
+        <h5 className="m-0">
           <b>Are you sure you want to remove this client?</b>
         </h5>
-        This process cannot be undone.
+        <b className="text-danger">This process cannot be undone!</b>
       </ModalBody>
       <ModalFooter className="p-1 pt-0">
         <Row className="justify-content-center g-2">

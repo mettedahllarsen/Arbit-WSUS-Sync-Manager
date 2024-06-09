@@ -14,7 +14,7 @@ const Header = (props) => {
       <Stack direction="horizontal" gap={2} className="w-100">
         <NavbarText className="ms-2 p-0">
           <h1 className="text-dark logoText m-0">
-            a<span className="text-red">r</span>bit
+            a<span className="text-danger">r</span>bit
           </h1>
         </NavbarText>
         <NavbarText>{title}</NavbarText>

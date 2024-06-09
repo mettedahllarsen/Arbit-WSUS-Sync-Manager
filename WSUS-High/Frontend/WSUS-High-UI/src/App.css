@@ -51,8 +51,12 @@ body {
   color: rgb(0, 65, 114);
 }
 
-.text-red {
-  color: rgb(238, 42, 36);
+.text-danger {
+  color: rgb(238, 42, 36) !important;
+}
+
+.text-success {
+  color: rgb(0, 88, 61) !important;
 }
 
 .text-gray {

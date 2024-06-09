@@ -3,7 +3,7 @@ import { Card, Row, Col, Button, Spinner } from "react-bootstrap";
 
 // TODO: Solution for extra buttons
 const TitleCard = (props) => {
-  const { title, icon, handleRefresh, isLoading } = props;
+  const { title, icon, handleRefresh, isLoading, updateTime } = props;
 
   return (
     <Card className="px-3 py-2">
@@ -15,17 +15,15 @@ const TitleCard = (props) => {
         <Col xs="auto">
           <span className="bigText">
             <b>Last updated</b>:{" "}
-            {new Date().toLocaleString("en-GB", {
-              formatMatcher: "best fit",
-            })}
+            {updateTime
+              ? updateTime
+              : new Date().toLocaleString("en-GB", {
+                  formatMatcher: "best fit",
+                })}
           </span>
         </Col>
         <Col className="text-end">
-          <Button
-            data-testid="refreshBtn"
-            variant="primary"
-            onClick={() => handleRefresh()}
-          >
+          <Button data-testid="refreshBtn" onClick={() => handleRefresh()}>
             {isLoading ? (
               <Spinner animation="border" role="status" size="sm" />
             ) : (
