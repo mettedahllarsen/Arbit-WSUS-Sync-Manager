@@ -4,7 +4,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import TitleCard from "../Cards/TitleCard";
 import Utils from "../../Utils/Utils";
 
-const Activity = () => {
+const History = () => {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const Activity = () => {
       <Row className="g-2">
         <Col>
           <TitleCard
-            title={"Activity"}
+            title={"History"}
             icon={"clock-rotate-left"}
             handleRefresh={handleRefresh}
             isLoading={isLoading}
@@ -34,4 +34,4 @@ const Activity = () => {
   );
 };
 
-export default Activity;
+export default History;
