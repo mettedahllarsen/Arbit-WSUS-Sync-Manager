@@ -6,12 +6,16 @@
     <RootNamespace>Console_App</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <UserSecretsId>775eb2e2-59d7-46d4-b008-b55de004c9da</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
+    <PackageReference Include="MyTested.AspNetCore.Mvc.ViewFeatures" Version="8.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="SharpCompress" Version="0.37.0" />
     <PackageReference Include="SharpZipLib" Version="1.4.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
     <PackageReference Include="System.ServiceModel.Http" Version="8.0.0" />
     <PackageReference Include="UpdateServices.ClientServerSync" Version="1.6.1" />
     <PackageReference Include="UpdateServices.ServerServerSync" Version="2.5.6" />
@@ -22,7 +26,7 @@
       <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\CommandLine.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="MathNet.Numerics">
       <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\MathNet.Numerics.dll</HintPath>
@@ -31,19 +35,19 @@
       <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\microsoft-update-webservices.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.JsonPatch">
-      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Microsoft.AspNetCore.JsonPatch.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\Microsoft.AspNetCore.JsonPatch.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Mvc.Razor.Extensions">
-      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Razor.Language">
-      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Microsoft.AspNetCore.Razor.Language.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\Microsoft.AspNetCore.Razor.Language.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Server.Kestrel.Https">
-      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Microsoft.AspNetCore.Server.Kestrel.Https.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\Microsoft.AspNetCore.Server.Kestrel.Https.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions">
-      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Azure.KeyVault.Core">
       <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\Microsoft.Azure.KeyVault.Core.dll</HintPath>
@@ -58,28 +62,28 @@
       <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeAnalysis">
-      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Microsoft.CodeAnalysis.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\Microsoft.CodeAnalysis.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeAnalysis.CSharp">
-      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeAnalysis.Razor">
-      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Microsoft.CodeAnalysis.Razor.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\Microsoft.CodeAnalysis.Razor.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.DotNet.PlatformAbstractions">
-      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Microsoft.DotNet.PlatformAbstractions.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\Microsoft.DotNet.PlatformAbstractions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.DependencyModel">
-      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Microsoft.Extensions.DependencyModel.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\Microsoft.Extensions.DependencyModel.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Win32.SystemEvents">
       <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\Microsoft.Win32.SystemEvents.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json.Bson">
-      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\Newtonsoft.Json.Bson.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\Newtonsoft.Json.Bson.dll</HintPath>
     </Reference>
     <Reference Include="package-graph-endpoints-microsoft-update">
       <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\package-graph-endpoints-microsoft-update.dll</HintPath>
@@ -94,10 +98,10 @@
       <HintPath>..\..\..\..\..\..\.nuget\packages\updateservices.serverserversync\2.5.6\lib\netcoreapp2.1\server-server-sync-lib.dll</HintPath>
     </Reference>
     <Reference Include="SoapCore">
-      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\SoapCore.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\SoapCore.dll</HintPath>
     </Reference>
     <Reference Include="System.CodeDom">
-      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\System.CodeDom.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\System.CodeDom.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing.Common">
       <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\System.Drawing.Common.dll</HintPath>
@@ -115,19 +119,19 @@
       <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\System.ServiceModel.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceModel.Duplex">
-      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\System.ServiceModel.Duplex.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\System.ServiceModel.Duplex.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceModel.Http">
-      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\System.ServiceModel.Http.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\System.ServiceModel.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceModel.NetTcp">
-      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\System.ServiceModel.NetTcp.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\System.ServiceModel.NetTcp.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceModel.Primitives">
-      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\System.ServiceModel.Primitives.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\System.ServiceModel.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceModel.Security">
-      <HintPath>..\..\..\..\..\..\Downloads\upsync-3.0.2\upsync-3.0.2\System.ServiceModel.Security.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\System.ServiceModel.Security.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Extensions">
       <HintPath>..\..\..\..\..\..\..\..\WSUSDLL\System.Windows.Extensions.dll</HintPath>
