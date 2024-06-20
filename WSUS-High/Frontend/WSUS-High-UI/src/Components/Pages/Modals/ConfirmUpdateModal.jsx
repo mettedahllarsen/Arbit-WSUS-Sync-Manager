@@ -16,7 +16,7 @@ const ConfirmUpdateModal = (props) => {
   const { show, hide, computer, handleRefresh, handleRevert, updates } = props;
 
   const updateComputer = async () => {
-    const url = API_URL + "/api/computers/" + computer.computerID;
+    const url = API_URL + "Computers/" + computer.computerID;
     const data = JSON.stringify({
       ComputerID: computer.computerID,
       ComputerName: updates.name,

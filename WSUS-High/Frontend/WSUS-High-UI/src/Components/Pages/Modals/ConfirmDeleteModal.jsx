@@ -16,7 +16,7 @@ const ConfirmDeleteModal = (props) => {
   const { show, hide, computer, handleRefresh } = props;
 
   const deleteComputer = async () => {
-    const url = API_URL + "/api/computers/" + computer.computerID;
+    const url = API_URL + "Computers/" + computer.computerID;
 
     try {
       const response = await axios.request({

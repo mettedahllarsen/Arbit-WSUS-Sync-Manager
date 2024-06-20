@@ -57,7 +57,7 @@ const AddClientModal = (props) => {
   };
 
   const addClient = async () => {
-    const url = API_URL + "/api/computers";
+    const url = API_URL + "Computers";
     const data = JSON.stringify({
       ComputerID: null,
       ComputerName: computerName,

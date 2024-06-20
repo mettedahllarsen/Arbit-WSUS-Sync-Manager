@@ -71,7 +71,7 @@ const App = () => {
     try {
       await axios({
         method: "get",
-        url: API_URL + "/api/Computers",
+        url: API_URL + "Computers",
       });
       setApiConnection(true);
       setDbConnection(true);

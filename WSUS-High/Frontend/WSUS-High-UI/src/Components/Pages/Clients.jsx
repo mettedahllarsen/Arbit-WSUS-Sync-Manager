@@ -29,7 +29,7 @@ const Clients = (props) => {
 
   const getComputers = async () => {
     try {
-      const response = await axios.get(API_URL + "/api/computers");
+      const response = await axios.get(API_URL + "Computers");
       const computers = response.data;
       setComputers(computers);
     } catch (error) {
