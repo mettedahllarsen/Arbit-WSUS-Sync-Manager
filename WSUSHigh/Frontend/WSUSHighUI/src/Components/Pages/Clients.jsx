@@ -29,7 +29,7 @@ const Clients = (props) => {
 
   const getComputers = async () => {
     try {
-      const response = await axios.get(API_URL + "Computers");
+      const response = await axios.get(API_URL + "/api/Computers");
       const computers = response.data;
       setComputers(computers);
     } catch (error) {
@@ -120,7 +120,7 @@ const Clients = (props) => {
                 <tr>
                   <th>#</th>
                   <th>Name</th>
-                  <th>Ip-adress</th>
+                  <th>IP-address</th>
                   <th>OS-version</th>
                   <th>Last connection</th>
                 </tr>

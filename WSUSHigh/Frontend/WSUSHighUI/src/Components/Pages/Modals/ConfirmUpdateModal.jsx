@@ -16,17 +16,15 @@ const ConfirmUpdateModal = (props) => {
   const { show, hide, computer, handleRefresh, handleRevert, updates } = props;
 
   const updateComputer = async () => {
-    const url = API_URL + "Computers/" + computer.computerID;
+    const url = API_URL + "/api/Computers/" + computer.computerID;
     const data = JSON.stringify({
-      ComputerID: computer.computerID,
       ComputerName: updates.name,
       IPAddress: updates.ip,
       OsVersion: updates.os,
-      LastConnection: new Date(),
+      LastConnection: computer.LastConnection,
     });
-
     try {
-      /*const response = */ await axios.request({
+      await axios.request({
         method: "put",
         maxBodyLength: Infinity,
         url: url,
@@ -35,7 +33,6 @@ const ConfirmUpdateModal = (props) => {
         },
         data: data,
       });
-
       handleRefresh();
     } catch (error) {
       Utils.handleAxiosError(error);
