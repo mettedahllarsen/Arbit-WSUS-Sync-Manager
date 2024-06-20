@@ -1,3 +1,4 @@
+
 using Microsoft.EntityFrameworkCore;
 using WSUSHighAPI;
 using WSUSHighAPI.Contexts;
@@ -46,11 +47,12 @@ else
     //builder.Services.AddSingleton<ComputersRepository>(new ComputersRepository());
 }
 
-builder.Services.AddDbContext<WSUSHighDbContext>(options =>
+/* HMMM... KAN JEG SLETTE DENNE KODE?
+ * builder.Services.AddDbContext<WSUSHighDbContext>(options =>
 {
-    // Configure the connection string here
-    options.UseSqlServer("[YOUR_CONNECTION_STRING]");  // Replace with your actual connection string
-});
+	// Configure the connection string here
+	options.UseSqlServer("[YOUR_CONNECTION_STRING]");  // Replace with your actual connection string
+});*/
 
 var app = builder.Build();
 
