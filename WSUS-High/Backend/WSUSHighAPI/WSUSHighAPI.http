@@ -1,6 +1,0 @@
-@WSUSHighAPI_HostAddress = http://localhost:5117
-
-GET {{WSUSHighAPI_HostAddress}}/computers/
-Accept: application/json
-
-###

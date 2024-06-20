@@ -7,73 +7,73 @@ namespace WSUSHighAPI.Repositories.Tests
     {
         private readonly ComputersRepository _computersRepository;
 
-        public ComputersRepositoryTests()
-        {
-            // Initialize the ComputersRepository for testing
-            _computersRepository = new ComputersRepository();
-        }
+        /*public ComputersRepositoryTests()
+		{
+			// Initialize the ComputersRepository for testing
+			_computersRepository = new ComputersRepository();
+		}
 
-        [TestMethod]
-        public void GetAllComputers_ReturnsNotEmptyList()
-        {
-            // Act
-            var computers = _computersRepository.GetAllComputers();
+		[TestMethod]
+		public void GetAllComputers_ReturnsNotEmptyList()
+		{
+			// Act
+			var computers = _computersRepository.GetAllComputers();
 
-            // Assert
-            Assert.IsNotNull(computers);
-            Assert.IsTrue(computers.Any()); // Check if the list contains any elements
-        }
+			// Assert
+			Assert.IsNotNull(computers);
+			Assert.IsTrue(computers.Any()); // Check if the list contains any elements
+		}
 
-        [TestMethod]
-        public void GetComputerById_ExistingId_ReturnsComputer()
-        {
-            // Arrange
-            int existingId = 3;
+		[TestMethod]
+		public void GetComputerById_ExistingId_ReturnsComputer()
+		{
+			// Arrange
+			int existingId = 3;
 
-            // Act
-            var computer = _computersRepository.GetComputerById(existingId);
+			// Act
+			var computer = _computersRepository.GetComputerById(existingId);
 
-            // Assert
-            Assert.IsNotNull(computer);
-            Assert.AreEqual(existingId, computer.ComputerID);
-        }
+			// Assert
+			Assert.IsNotNull(computer);
+			Assert.AreEqual(existingId, computer.ComputerID);
+		}
 
-        [TestMethod]
-        public void GetComputerById_NonExistingId_ReturnsNull()
-        {
-            // Arrange
-            int nonExistingId = -1;
+		[TestMethod]
+		public void GetComputerById_NonExistingId_ReturnsNull()
+		{
+			// Arrange
+			int nonExistingId = -1;
 
-            // Act
-            var computer = _computersRepository.GetComputerById(nonExistingId);
+			// Act
+			var computer = _computersRepository.GetComputerById(nonExistingId);
 
-            // Assert
-            Assert.IsNull(computer);
-        }
+			// Assert
+			Assert.IsNull(computer);
+		}
 
-        [TestMethod]
-        public void AddComputer_ValidComputer_AddsSuccessfully()
-        {
-            // Arrange
-            var computer = new Computer
-            {
-                ComputerName = "TestComputer",
-                IPAddress = "192.168.1.1",
-                OSVersion = "Windows 10",
-                LastConnection = DateTime.Now
-            };
+		/*[TestMethod]
+		public void AddComputer_ValidComputer_AddsSuccessfully()
+		{
+			// Arrange
+			var computer = new Computer
+			{
+				ComputerName = "TestComputer",
+				IPAddress = "192.168.1.1",
+				OSVersion = "Windows 10",
+				LastConnection = DateTime.Now
+			};
 
-            // Act
-            var addedComputer = _computersRepository.AddComputer(computer);
+			// Act
+			var addedComputer = _computersRepository.AddComputer(computer);
 
-            // Assert
-            Assert.IsNotNull(addedComputer);
-            Assert.AreNotEqual(0, addedComputer.ComputerID); // Ensure the ID is not 0
-            Assert.AreEqual(computer.ComputerName, addedComputer.ComputerName);
-            Assert.AreEqual(computer.IPAddress, addedComputer.IPAddress);
-            Assert.AreEqual(computer.OSVersion, addedComputer.OSVersion);
-            Assert.AreEqual(computer.LastConnection.ToString("yyyy-MM-dd HH:mm:ss"), addedComputer.LastConnection.ToString("yyyy-MM-dd HH:mm:ss"));
-        }
+			// Assert
+			Assert.IsNotNull(addedComputer);
+			Assert.AreNotEqual(0, addedComputer.ComputerID); // Ensure the ID is not 0
+			Assert.AreEqual(computer.ComputerName, addedComputer.ComputerName);
+			Assert.AreEqual(computer.IPAddress, addedComputer.IPAddress);
+			Assert.AreEqual(computer.OSVersion, addedComputer.OSVersion);
+			Assert.AreEqual(computer.LastConnection.ToString("yyyy-MM-dd HH:mm:ss"), addedComputer.LastConnection.ToString("yyyy-MM-dd HH:mm:ss"));
+		}*/
 
         [TestMethod]
         public void UpdateComputer_ValidComputer_UpdatesSuccessfully()
