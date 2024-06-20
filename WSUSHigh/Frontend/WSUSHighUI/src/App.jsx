@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { Routes, Route } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Routes,
+  Route,
+} from "react-router-dom";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faHouse,
@@ -46,6 +51,14 @@ library.add(
   faCircleInfo,
   faWindowMinimize
 );
+
+const Layout = () => {
+  return (
+    <Container fluid className="gx-0 Content">
+      <Header title={<HeaderTitle />} content={<HeaderNav />} />
+    </Container>
+  );
+};
 
 const App = () => {
   const [apiConnection, setApiConnection] = useState(false);
