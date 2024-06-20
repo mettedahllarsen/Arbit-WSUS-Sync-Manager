@@ -16,7 +16,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: allowSpecificOriginPolicy, policy =>
     {
         // Specifying that requests from "https://example.com" are allowed
-        policy.WithOrigins("https://example.com")
+        policy.AllowAnyOrigin()
               // Allows any HTTP method (GET, POST, PUT, DELETE, etc.)
               .AllowAnyMethod()
               // Allows any HTTP header
