@@ -8,36 +8,9 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
-import axios from "axios";
-import Utils from "../../../Utils/Utils";
-import { API_URL } from "../../../Utils/Settings";
 
 const ConfirmUpdateModal = (props) => {
-  const { show, hide, computer, handleRefresh, handleRevert, updates } = props;
-
-  const updateComputer = async () => {
-    const url = API_URL + "/api/Computers/" + computer.computerID;
-    const data = JSON.stringify({
-      ComputerName: updates.name,
-      IPAddress: updates.ip,
-      OsVersion: updates.os,
-      LastConnection: computer.LastConnection,
-    });
-    try {
-      await axios.request({
-        method: "put",
-        maxBodyLength: Infinity,
-        url: url,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: data,
-      });
-      handleRefresh();
-    } catch (error) {
-      Utils.handleAxiosError(error);
-    }
-  };
+  const { show, hide, before, after, updateClient, handleRevert } = props;
 
   useEffect(() => {
     console.log("Component ConfirmUpdateModal mounted");
@@ -63,7 +36,7 @@ const ConfirmUpdateModal = (props) => {
           <Col xs="12">
             <Row className="g-2">
               <Col xs="12">The following changes were made:</Col>
-              {updates.name != computer.computerName ? (
+              {after.name != before.name ? (
                 <Col xs="12">
                   <Row>
                     <Col xs="3">
@@ -71,17 +44,15 @@ const ConfirmUpdateModal = (props) => {
                     </Col>
                     <Col xs="auto">
                       {"'"}
-                      <span className="text-danger">
-                        {computer.computerName}
-                      </span>
+                      <span className="text-danger">{before.name}</span>
                       {"'"} <b>{"--->"}</b> {"'"}
-                      <span className="text-success">{updates.name}</span>
+                      <span className="text-success">{after.name}</span>
                       {"'"}
                     </Col>
                   </Row>
                 </Col>
               ) : null}
-              {updates.ip != computer.ipAddress ? (
+              {after.ip != before.ip ? (
                 <Col xs="12">
                   <Row>
                     <Col xs="3">
@@ -89,15 +60,15 @@ const ConfirmUpdateModal = (props) => {
                     </Col>
                     <Col xs="auto">
                       {"'"}
-                      <span className="text-danger">{computer.ipAddress}</span>
+                      <span className="text-danger">{before.ip}</span>
                       {"'"} <b>{"--->"}</b> {"'"}
-                      <span className="text-success">{updates.ip}</span>
+                      <span className="text-success">{after.ip}</span>
                       {"'"}
                     </Col>
                   </Row>
                 </Col>
               ) : null}
-              {updates.os != computer.osVersion ? (
+              {after.os != before.os ? (
                 <Col xs="12">
                   <Row>
                     <Col xs="3">
@@ -105,9 +76,9 @@ const ConfirmUpdateModal = (props) => {
                     </Col>
                     <Col xs="auto">
                       {"'"}
-                      <span className="text-danger">{computer.osVersion}</span>
+                      <span className="text-danger">{before.os}</span>
                       {"'"} <b>{"--->"}</b> {"'"}
-                      <span className="text-success">{updates.os}</span>
+                      <span className="text-success">{after.os}</span>
                       {"'"}
                     </Col>
                   </Row>
@@ -127,7 +98,7 @@ const ConfirmUpdateModal = (props) => {
           <Col xs="auto">
             <Button
               onClick={() => {
-                updateComputer();
+                updateClient();
                 hide();
               }}
             >

@@ -14,13 +14,24 @@ import {
 } from "react-bootstrap";
 import Utils from "../../Utils/Utils";
 import ConfirmUpdateModal from "../Pages/Modals/ConfirmUpdateModal";
+import { API_URL } from "../../Utils/Settings";
+import axios from "axios";
 
 const DetailedCard = (props) => {
-  const { hide, computer, handleRefresh, deleteClient } = props;
+  const {
+    hide,
+    selectedComputer,
+    setSelectedComputer,
+    handleRefresh,
+    deleteClient,
+    handleToast,
+  } = props;
 
-  const [computerName, setComputerName] = useState(computer.computerName);
-  const [ipAddress, setIpAddress] = useState(computer.ipAddress);
-  const [osVersion, setOsVersion] = useState(computer.osVersion);
+  const [computerName, setComputerName] = useState(
+    selectedComputer.computerName
+  );
+  const [ipAddress, setIpAddress] = useState(selectedComputer.ipAddress);
+  const [osVersion, setOsVersion] = useState(selectedComputer.osVersion);
 
   const [invalidName, setInvalidName] = useState(false);
   const [nameMessage, setNameMessage] = useState("");
@@ -38,24 +49,24 @@ const DetailedCard = (props) => {
     ip: null,
     os: null,
   });
-  const [showConirmUpdateModal, setShowConfirmUpdateModal] = useState(false);
+  const [showConfirmUpdateModal, setShowConfirmUpdateModal] = useState(false);
 
   const [noChanges, setNoChanges] = useState(true);
 
   const dontUpdateSameValues = useCallback(() => {
     if (
-      computer.computerName == computerName &&
-      computer.ipAddress == ipAddress &&
-      computer.osVersion == osVersion
+      selectedComputer.computerName == computerName &&
+      selectedComputer.ipAddress == ipAddress &&
+      selectedComputer.osVersion == osVersion
     ) {
       setNoChanges(true);
     } else {
       setNoChanges(false);
     }
   }, [
-    computer.computerName,
-    computer.ipAddress,
-    computer.osVersion,
+    selectedComputer.computerName,
+    selectedComputer.ipAddress,
+    selectedComputer.osVersion,
     computerName,
     ipAddress,
     osVersion,
@@ -93,14 +104,47 @@ const DetailedCard = (props) => {
     setShowConfirmUpdateModal(false);
     setNoChanges(true);
     setEdit(false);
-    setComputerName(computer.computerName);
-    setIpAddress(computer.ipAddress);
-    setOsVersion(computer.osVersion);
+    setComputerName(selectedComputer.computerName);
+    setIpAddress(selectedComputer.ipAddress);
+    setOsVersion(selectedComputer.osVersion);
   };
 
   const handleUpdateModal = () => {
     setUpdateValues({ name: computerName, ip: ipAddress, os: osVersion });
     setShowConfirmUpdateModal(true);
+  };
+
+  const updateClient = async () => {
+    const url = API_URL + "/api/Computers/" + selectedComputer.computerID;
+    const data = JSON.stringify({
+      ComputerName: updateValues.name,
+      IPAddress: updateValues.ip,
+      OsVersion: updateValues.os,
+      LastConnection: selectedComputer.LastConnection,
+    });
+    try {
+      await axios.request({
+        method: "put",
+        maxBodyLength: Infinity,
+        url: url,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      });
+      handleToast(true, "Successfully updated client");
+      setSelectedComputer((prevProps) => ({
+        ...prevProps,
+        computerName: updateValues.name,
+        ipAddress: updateValues.ip,
+        osVersion: updateValues.os,
+      }));
+      setEdit(false);
+      handleRefresh();
+    } catch (error) {
+      Utils.handleAxiosError(error);
+      handleToast(false, "Failed to update client");
+    }
   };
 
   return (
@@ -115,7 +159,7 @@ const DetailedCard = (props) => {
           </Col>
         </Row>
       </CardHeader>
-      {computer && (
+      {selectedComputer && (
         <CardBody>
           <Form className="mb-4">
             <Row>
@@ -218,16 +262,20 @@ const DetailedCard = (props) => {
           </Row>
         </CardBody>
       )}
-      {showConirmUpdateModal && (
+      {showConfirmUpdateModal && (
         <ConfirmUpdateModal
-          show={showConirmUpdateModal}
+          show={showConfirmUpdateModal}
           hide={() => {
             setShowConfirmUpdateModal(false);
           }}
-          computer={computer}
+          before={{
+            name: selectedComputer.computerName,
+            ip: selectedComputer.ipAddress,
+            os: selectedComputer.osVersion,
+          }}
+          after={updateValues}
           handleRevert={handleRevert}
-          handleRefresh={handleRefresh}
-          updates={updateValues}
+          updateClient={updateClient}
         />
       )}
     </Card>

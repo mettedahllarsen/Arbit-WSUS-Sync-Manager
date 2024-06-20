@@ -137,3 +137,14 @@ body {
    text-align: center;
   }
 }
+
+.toastSuccess {
+  color: #fff;
+  text-align: center;
+  background-color: rgba(
+    0,
+    88,
+    61,
+    0.85
+  );
+}

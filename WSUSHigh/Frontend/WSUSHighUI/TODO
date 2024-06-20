@@ -1,0 +1,4 @@
+DetailedCard: Ip and OS values don't change on revert
+Header: Header should always be visible in top of app
+Sidebar: Sidebar should not scroll with page
+Implementation for new endpoints

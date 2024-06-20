@@ -13,19 +13,20 @@ import Utils from "../../../Utils/Utils";
 import { API_URL } from "../../../Utils/Settings";
 
 const ConfirmDeleteModal = (props) => {
-  const { show, hide, computer, handleRefresh } = props;
+  const { show, hide, computer, handleRefresh, handleToast } = props;
 
   const deleteComputer = async () => {
     const url = API_URL + "/api/Computers/" + computer.computerID;
     try {
-      const response = await axios.request({
+      await axios.request({
         method: "delete",
         url: url,
       });
       handleRefresh();
-      console.log(response.data);
+      handleToast(true, "Successfully deleted client");
     } catch (error) {
       Utils.handleAxiosError(error);
+      handleToast(false, "Failed to delete client");
     }
   };
 

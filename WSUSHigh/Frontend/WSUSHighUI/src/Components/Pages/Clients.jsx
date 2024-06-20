@@ -9,6 +9,8 @@ import {
   Button,
   Table,
   CardHeader,
+  Toast,
+  ToastContainer,
 } from "react-bootstrap";
 import { API_URL } from "../../Utils/Settings";
 import Utils from "../../Utils/Utils";
@@ -26,6 +28,17 @@ const Clients = (props) => {
   const [showAddClientModal, setShowAddClientModal] = useState(false);
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
   const [showDetailedCard, setShowDetailedCard] = useState(false);
+
+  const [showToast, setShowToast] = useState(false);
+  const [toastData, setToastData] = useState({
+    success: false,
+    message: "",
+  });
+
+  const handleToast = (success, message) => {
+    setToastData({ success, message });
+    setShowToast(true);
+  };
 
   const getComputers = async () => {
     try {
@@ -88,6 +101,19 @@ const Clients = (props) => {
 
   return (
     <Container fluid>
+      <ToastContainer position="bottom-end" className="mb-4 me-4">
+        <Toast
+          onClose={() => setShowToast(false)}
+          show={showToast}
+          className={
+            toastData.success ? "toastSuccess p-2" : "toastFailure p-2"
+          }
+          delay={6000}
+          autohide
+        >
+          <b>{toastData.message}</b>
+        </Toast>
+      </ToastContainer>
       <Row className="g-2">
         <Col xs="12">
           <TitleCard
@@ -172,9 +198,11 @@ const Clients = (props) => {
               hide={() => {
                 setShowDetailedCard(false);
               }}
-              computer={selectedComputer}
+              selectedComputer={selectedComputer}
+              setSelectedComputer={setSelectedComputer}
               handleRefresh={handleRefresh}
               deleteClient={() => setShowConfirmDeleteModal(true)}
+              handleToast={handleToast}
             />
           )}
         </Col>
@@ -184,6 +212,7 @@ const Clients = (props) => {
           show={showAddClientModal}
           hide={() => setShowAddClientModal(false)}
           handleRefresh={handleRefresh}
+          handleToast={handleToast}
         />
       )}
       {showConfirmDeleteModal && (
@@ -194,6 +223,7 @@ const Clients = (props) => {
           }}
           computer={selectedComputer}
           handleRefresh={handleRefresh}
+          handleToast={handleToast}
         />
       )}
     </Container>

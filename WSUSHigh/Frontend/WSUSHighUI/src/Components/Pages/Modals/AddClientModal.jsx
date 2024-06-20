@@ -16,7 +16,7 @@ import { API_URL } from "../../../Utils/Settings";
 import Utils from "../../../Utils/Utils";
 
 const AddClientModal = (props) => {
-  const { show, hide, handleRefresh } = props;
+  const { show, hide, handleRefresh, handleToast } = props;
   const [invalidName, setInvalidName] = useState(false);
   const [nameMessage, setNameMessage] = useState("");
 
@@ -59,14 +59,14 @@ const AddClientModal = (props) => {
   const addClient = async () => {
     const url = API_URL + "/api/Computers";
     const data = JSON.stringify({
-      ComputerName: computerName,
-      IPAddress: ipAddress,
-      OsVersion: osVersion,
-      LastConnection: new Date(),
+      computerName: computerName,
+      ipAddress: ipAddress,
+      osVersion: osVersion,
+      lastConnection: new Date(),
     });
 
     try {
-      const response = await axios.request({
+      await axios.request({
         method: "post",
         maxBodyLength: Infinity,
         url: url,
@@ -75,11 +75,11 @@ const AddClientModal = (props) => {
         },
         data: data,
       });
-
       handleRefresh();
-      console.log(response.data);
+      handleToast(true, "Successfully added client");
     } catch (error) {
       Utils.handleAxiosError(error);
+      handleToast(false, "Failed to add client");
     }
   };
 
