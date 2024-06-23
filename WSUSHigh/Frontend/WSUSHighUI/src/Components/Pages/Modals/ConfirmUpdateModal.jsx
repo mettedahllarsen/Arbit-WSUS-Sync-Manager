@@ -17,7 +17,7 @@ const ConfirmUpdateModal = (props) => {
   }, []);
 
   return (
-    <Modal show={show} onHide={() => hide()} className="modal-margin">
+    <Modal show={show} onHide={() => hide()} className="modalBox">
       <ModalHeader className="p-2" closeButton>
         Update Client
       </ModalHeader>
@@ -63,22 +63,6 @@ const ConfirmUpdateModal = (props) => {
                       <span className="text-danger">{before.ip}</span>
                       {"'"} <b>{"--->"}</b> {"'"}
                       <span className="text-success">{after.ip}</span>
-                      {"'"}
-                    </Col>
-                  </Row>
-                </Col>
-              ) : null}
-              {after.os != before.os ? (
-                <Col xs="12">
-                  <Row>
-                    <Col xs="3">
-                      <b>OS-version:</b>
-                    </Col>
-                    <Col xs="auto">
-                      {"'"}
-                      <span className="text-danger">{before.os}</span>
-                      {"'"} <b>{"--->"}</b> {"'"}
-                      <span className="text-success">{after.os}</span>
                       {"'"}
                     </Col>
                   </Row>

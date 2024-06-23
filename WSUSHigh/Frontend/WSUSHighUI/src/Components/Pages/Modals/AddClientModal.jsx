@@ -24,7 +24,6 @@ const AddClientModal = (props) => {
 
   const [computerName, setComputerName] = useState(null);
   const [ipAddress, setIpAddress] = useState(null);
-  const [osVersion, setOsVersion] = useState(null);
 
   useEffect(() => {
     console.log("Component AddClientModal mounted");
@@ -52,16 +51,12 @@ const AddClientModal = (props) => {
     }
   };
 
-  const osHandler = (e) => {
-    setOsVersion(e.target.value);
-  };
-
   const addClient = async () => {
     const url = API_URL + "/api/Computers";
     const data = JSON.stringify({
       computerName: computerName,
       ipAddress: ipAddress,
-      osVersion: osVersion,
+      osVersion: null,
       lastConnection: new Date(),
     });
 
@@ -84,17 +79,17 @@ const AddClientModal = (props) => {
   };
 
   return (
-    <Modal show={show} onHide={() => hide()} className="modal-margin">
+    <Modal show={show} onHide={() => hide()} className="modalBox" size="sm">
       <ModalHeader closeButton className="py-1">
         <ModalTitle className="title">
           <FontAwesomeIcon icon="plus" /> Add New Client
         </ModalTitle>
       </ModalHeader>
 
-      <ModalBody>
-        <Form className="mb-4">
+      <ModalBody className="p-2">
+        <Form className="mb-2">
           <FormGroup className="mb-3">
-            <FormLabel>Name</FormLabel>
+            <FormLabel className="mb-1">Name</FormLabel>
             <FormControl
               type="text"
               placeholder="Name"
@@ -106,24 +101,16 @@ const AddClientModal = (props) => {
             </Form.Control.Feedback>
           </FormGroup>
           <FormGroup className="mb-3">
-            <FormLabel>IP Address</FormLabel>
+            <FormLabel className="mb-1">IP-address</FormLabel>
             <FormControl
               type="text"
-              placeholder="Ip-Address"
+              placeholder="IP-address"
               onChange={ipHandler}
               isInvalid={invalidIp}
             />
             <Form.Control.Feedback type="invalid">
               Invalid Ip-address
             </Form.Control.Feedback>
-          </FormGroup>
-          <FormGroup>
-            <FormLabel>OS Version</FormLabel>
-            <FormControl
-              type="text"
-              placeholder="OS Version"
-              onChange={osHandler}
-            />
           </FormGroup>
         </Form>
         <div className="text-center">

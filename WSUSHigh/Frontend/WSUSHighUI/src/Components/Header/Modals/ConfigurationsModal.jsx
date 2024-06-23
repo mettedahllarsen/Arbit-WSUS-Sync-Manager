@@ -9,7 +9,7 @@ const ConfigurationsModal = (props) => {
     console.log("Component ConfigurationModal mounted");
   }, []);
   return (
-    <Modal show={show} onHide={() => hide()} className="modal-margin">
+    <Modal show={show} onHide={() => hide()} className="modalBox">
       <ModalHeader className="py-1" closeButton>
         <ModalTitle className="title">
           <FontAwesomeIcon icon="gear" /> Configurations

@@ -1,14 +1,25 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Card, Row, Col, Button, Spinner } from "react-bootstrap";
 
-// TODO: Solution for extra buttons
 const TitleCard = (props) => {
-  const { title, icon, handleRefresh, isLoading, updateTime } = props;
+  const {
+    title,
+    icon,
+    handleRefresh,
+    isLoading,
+    updateTime,
+    extraButton,
+  } = props;
 
   return (
-    <Card className="px-3 py-2">
-      <Row className="align-items-center">
-        <Col as="h3" xs="auto" className="title m-0" data-testid="pageTitle">
+    <Card className="ps-3 pe-2 py-2">
+      <Row className="align-items-center g-0">
+        <Col
+          as="h3"
+          xs="auto"
+          className="title m-0 me-3"
+          data-testid="pageTitle"
+        >
           <FontAwesomeIcon icon={icon} className="me-2" />
           {title}
         </Col>
@@ -22,7 +33,11 @@ const TitleCard = (props) => {
                 })}
           </span>
         </Col>
-        <Col className="text-end">
+        {extraButton ? extraButton : ""}
+        <Col
+          xs={extraButton ? "auto" : ""}
+          className={extraButton ? "" : "text-end"}
+        >
           <Button data-testid="refreshBtn" onClick={() => handleRefresh()}>
             {isLoading ? (
               <Spinner animation="border" role="status" size="sm" />

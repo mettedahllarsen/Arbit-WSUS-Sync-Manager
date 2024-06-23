@@ -2,13 +2,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  Container,
   Row,
   Col,
-  Card,
   Button,
   Table,
-  CardHeader,
   Toast,
   ToastContainer,
 } from "react-bootstrap";
@@ -73,47 +70,11 @@ const Clients = (props) => {
 
   useEffect(() => {
     console.log("Clients mounted");
-
     getComputers();
   }, []);
 
-  const processTableFields = (computer) => {
-    const computerProperties = [
-      "computerID",
-      "computerName",
-      "ipAddress",
-      "osVersion",
-      "lastConnection",
-    ];
-
-    return computerProperties.map((prop) => (
-      <td key={prop}>
-        {prop == "lastConnection"
-          ? computer.lastConnection
-            ? new Date(computer.lastConnection).toLocaleString("en-GB", {
-                formatMatcher: "best fit",
-              })
-            : "N/A"
-          : computer[prop]}
-      </td>
-    ));
-  };
-
   return (
-    <Container fluid>
-      <ToastContainer position="bottom-end" className="mb-4 me-4">
-        <Toast
-          onClose={() => setShowToast(false)}
-          show={showToast}
-          className={
-            toastData.success ? "toastSuccess p-2" : "toastFailure p-2"
-          }
-          delay={6000}
-          autohide
-        >
-          <b>{toastData.message}</b>
-        </Toast>
-      </ToastContainer>
+    <>
       <Row className="g-2">
         <Col xs="12">
           <TitleCard
@@ -122,76 +83,66 @@ const Clients = (props) => {
             handleRefresh={handleRefresh}
             isLoading={isLoading}
             updateTime={updateTime}
+            extraButton={
+              <Col className="text-end me-2">
+                <Button
+                  onClick={() => setShowAddClientModal(true)}
+                  disabled={!dbConnection && !apiConnection}
+                >
+                  <FontAwesomeIcon icon="plus" /> New Client
+                </Button>
+              </Col>
+            }
           />
         </Col>
-        <Col xs="12" xl="8">
-          <Card>
-            <CardHeader>
-              <Row className="align-items-center">
-                <Col xs="auto" as="h4" className="title mb-0">
-                  Connected clients
-                </Col>
-                <Col className="text-end">
-                  <Button
-                    onClick={() => setShowAddClientModal(true)}
-                    disabled={!dbConnection && !apiConnection}
-                  >
-                    <FontAwesomeIcon icon="plus" /> Add Client
-                  </Button>
-                </Col>
-              </Row>
-            </CardHeader>
-            <Table bordered hover className="m-0">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Name</th>
-                  <th>IP-address</th>
-                  <th>OS-version</th>
-                  <th>Last connection</th>
+        <Col xs="12">
+          <Table bordered hover className="my-1">
+            <thead>
+              <tr>
+                <th>IP-address</th>
+                <th>Name</th>
+                <th>OS-version</th>
+                <th>Last connection</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {computers.map((computer) => (
+                <tr key={computer.computerID}>
+                  <td>{computer.ipAddress}</td>
+                  <td>{computer.computerName}</td>
+                  <td>{computer.osVersion ? computer.osVersion : "N/A"}</td>
+                  <td>
+                    {new Date(computer.lastConnection).toLocaleString("en-GB", {
+                      formatMatcher: "best fit",
+                    })}
+                  </td>
+                  <td className="p-1 ">
+                    <Row className="g-1 justify-content-center">
+                      <Col xs="auto">
+                        <Button onClick={() => handleDetailedCard(computer)}>
+                          <FontAwesomeIcon icon="circle-info" />
+                        </Button>
+                      </Col>
+                      <Col xs="auto">
+                        <Button
+                          variant="danger"
+                          onClick={() => {
+                            setSelectedComputer(computer);
+                            setShowConfirmDeleteModal(true);
+                          }}
+                        >
+                          <FontAwesomeIcon icon="trash-can" />
+                        </Button>
+                      </Col>
+                    </Row>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {computers.map((computer) => (
-                  <tr key={computer.computerID}>
-                    {processTableFields(computer)}
-                    <td className="p-1 ">
-                      <Row className="g-1 justify-content-center">
-                        <Col xs="auto">
-                          <Button onClick={() => handleDetailedCard(computer)}>
-                            <FontAwesomeIcon icon="circle-info" />
-                          </Button>
-                        </Col>
-                        <Col xs="auto">
-                          <Button
-                            variant="danger"
-                            onClick={() => {
-                              setSelectedComputer(computer);
-                              setShowConfirmDeleteModal(true);
-                            }}
-                          >
-                            <FontAwesomeIcon icon="trash-can" />
-                          </Button>
-                        </Col>
-                      </Row>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          </Card>
+              ))}
+            </tbody>
+          </Table>
         </Col>
-        <Col xs="12" xl="4">
-          <Card>
-            <CardHeader as={"h4"} className="text-center mb-2 title">
-              Update Planner
-            </CardHeader>
-            <div className="text-center biggerText">
-              <b>TBA</b>
-            </div>
-          </Card>
-        </Col>
-        <Col xs="12" xl="8">
+        <Col>
           {showDetailedCard && (
             <DetailedCard
               key={selectedComputer ? selectedComputer.computerID : null}
@@ -201,7 +152,6 @@ const Clients = (props) => {
               selectedComputer={selectedComputer}
               setSelectedComputer={setSelectedComputer}
               handleRefresh={handleRefresh}
-              deleteClient={() => setShowConfirmDeleteModal(true)}
               handleToast={handleToast}
             />
           )}
@@ -226,7 +176,20 @@ const Clients = (props) => {
           handleToast={handleToast}
         />
       )}
-    </Container>
+      <ToastContainer position="bottom-end" className="mb-4 me-4">
+        <Toast
+          onClose={() => setShowToast(false)}
+          show={showToast}
+          className={
+            toastData.success ? "toastSuccess p-2" : "toastFailure p-2"
+          }
+          delay={6000}
+          autohide
+        >
+          <b>{toastData.message}</b>
+        </Toast>
+      </ToastContainer>
+    </>
   );
 };
 

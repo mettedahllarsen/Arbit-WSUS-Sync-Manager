@@ -1,9 +1,16 @@
 import { useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import SideBarButton from "./SideBarButton";
 
 const SideBar = () => {
-  const [activeButton, setActiveButton] = useState("Overview");
+  const activeOnReload = () => {
+    var path = window.location.pathname;
+    return path == "/"
+      ? (path = "Overview")
+      : (path = path.replaceAll("/", ""));
+  };
+
+  const [activeButton, setActiveButton] = useState(activeOnReload);
 
   const buttonData = [
     { title: "Overview", icon: "house", testId: "overviewBtn" },
@@ -14,23 +21,21 @@ const SideBar = () => {
   ];
 
   const handleClick = (clickedTitle) => {
-    setActiveButton(clickedTitle);
+    setActiveButton(clickedTitle.replaceAll(" ", ""));
   };
 
   return (
-    <Container bg="black" className="SideBar">
-      <Row>
-        {buttonData.map((buttonProps) => (
-          <Col xs="12" key={buttonProps.title}>
-            <SideBarButton
-              {...buttonProps}
-              isActive={activeButton === buttonProps.title}
-              onClick={() => handleClick(buttonProps.title)}
-            />
-          </Col>
-        ))}
-      </Row>
-    </Container>
+    <Row>
+      {buttonData.map((buttonProps) => (
+        <Col xs="12" key={buttonProps.title}>
+          <SideBarButton
+            {...buttonProps}
+            isActive={activeButton == buttonProps.title.replaceAll(" ", "")}
+            onClick={() => handleClick(buttonProps.title)}
+          />
+        </Col>
+      ))}
+    </Row>
   );
 };
 

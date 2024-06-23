@@ -1,14 +1,7 @@
 import { useEffect, useState } from "react";
 // import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  CardHeader,
-  CardBody,
-} from "react-bootstrap";
+import { Row, Col, Card, CardHeader, CardBody } from "react-bootstrap";
 import TitleCard from "../Cards/TitleCard";
 import Utils from "../../Utils/Utils";
 // import { API_URL } from "../../Utils/Settings";
@@ -30,7 +23,7 @@ const Overview = (props) => {
   }, []);
 
   return (
-    <Container fluid>
+    <>
       <Row className="g-2">
         <Col xs="12">
           <TitleCard
@@ -41,7 +34,6 @@ const Overview = (props) => {
           />
         </Col>
 
-        {/* Partially Working */}
         <Col xs="4">
           <Card>
             <CardHeader
@@ -129,7 +121,7 @@ const Overview = (props) => {
           </Card>
         </Col>
       </Row>
-    </Container>
+    </>
   );
 };
 

@@ -35,7 +35,7 @@ const ConfirmDeleteModal = (props) => {
   }, []);
 
   return (
-    <Modal show={show} onHide={() => hide()} className="modal-margin">
+    <Modal show={show} onHide={() => hide()} className="modalBox">
       <ModalHeader className="p-2" closeButton>
         Remove Client: #{computer.computerID}
       </ModalHeader>

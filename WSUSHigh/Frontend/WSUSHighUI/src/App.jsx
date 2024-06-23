@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { Routes, Route, Outlet, BrowserRouter } from "react-router-dom";
+import axios from "axios";
+import { Row } from "react-bootstrap";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faHouse,
@@ -25,16 +21,15 @@ import {
 import Header from "./Components/Header/Header";
 import HeaderNav from "./Components/Header/HeaderNav";
 import HeaderTitle from "./Components/Header/HeaderTitle";
-import Overview from "./Components/Pages/Overview";
 import SideBar from "./Components/SideBar/SideBar";
-import PageNotFound from "./Components/Pages/PageNotFound";
+import Overview from "./Components/Pages/Overview";
 import Updates from "./Components/Pages/Updates";
-import axios from "axios";
-import { API_URL } from "./Utils/Settings";
-import Utils from "./Utils/Utils";
 import Clients from "./Components/Pages/Clients";
 import SyncSettings from "./Components/Pages/SyncSettings";
 import History from "./Components/Pages/History";
+import PageNotFound from "./Components/Pages/PageNotFound";
+import { API_URL } from "./Utils/Settings";
+import Utils from "./Utils/Utils";
 
 library.add(
   faHouse,
@@ -54,9 +49,19 @@ library.add(
 
 const Layout = () => {
   return (
-    <Container fluid className="gx-0 Content">
+    <>
       <Header title={<HeaderTitle />} content={<HeaderNav />} />
-    </Container>
+      <Row className="g-0">
+        <div className="SideBar">
+          <SideBar />
+        </div>
+        <div className="Page">
+          <div className="w-100">
+            <Outlet />
+          </div>
+        </div>
+      </Row>
+    </>
   );
 };
 
@@ -74,7 +79,6 @@ const App = () => {
     checkConnection();
   }, []);
 
-  // TODO: Make a way to check the two connections individually
   const checkConnection = async () => {
     setUpdateTime(
       new Date().toLocaleString("en-GB", {
@@ -96,46 +100,39 @@ const App = () => {
       return false;
     }
   };
-
   return (
-    <Container fluid className="gx-0 Content">
-      <Header title={<HeaderTitle />} content={<HeaderNav />} />
-      <Row className="g-0">
-        <Col xs="auto">
-          <SideBar />
-        </Col>
-        <Col className="Page py-3">
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Overview
-                  checkConnection={checkConnection}
-                  apiConnection={apiConnection}
-                  dbConnection={dbConnection}
-                  /*updateTime={updateTime}*/
-                />
-              }
-            />
-            <Route path="/updates" element={<Updates />} />
-            <Route
-              path="/clients"
-              element={
-                <Clients
-                  checkConnection={checkConnection}
-                  apiConnection={apiConnection}
-                  dbConnection={dbConnection}
-                  updateTime={updateTime}
-                />
-              }
-            />
-            <Route path="/syncsettings" element={<SyncSettings />} />
-            <Route path="/history" element={<History />} />
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-        </Col>
-      </Row>
-    </Container>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route
+            path="/"
+            element={
+              <Overview
+                checkConnection={checkConnection}
+                apiConnection={apiConnection}
+                dbConnection={dbConnection}
+                updateTime={updateTime}
+              />
+            }
+          />
+          <Route path="/updates" element={<Updates />} />
+          <Route
+            path="/clients"
+            element={
+              <Clients
+                checkConnection={checkConnection}
+                apiConnection={apiConnection}
+                dbConnection={dbConnection}
+                updateTime={updateTime}
+              />
+            }
+          />
+          <Route path="/syncsettings" element={<SyncSettings />} />
+          <Route path="/history" element={<History />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 };
 

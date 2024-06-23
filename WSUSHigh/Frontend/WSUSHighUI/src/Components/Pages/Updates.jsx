@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Container, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import TitleCard from "../Cards/TitleCard";
 import Utils from "../../Utils/Utils";
 
@@ -19,7 +18,7 @@ const Updates = () => {
   };
 
   return (
-    <Container fluid>
+    <>
       <Row className="g-2">
         <Col>
           <TitleCard
@@ -30,7 +29,7 @@ const Updates = () => {
           />
         </Col>
       </Row>
-    </Container>
+    </>
   );
 };
 
