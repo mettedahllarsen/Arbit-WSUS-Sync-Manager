@@ -2,23 +2,15 @@
 using Microsoft.PackageGraph.MicrosoftUpdate.Source;
 using Microsoft.PackageGraph.ObjectModel;
 using Microsoft.PackageGraph.Storage.Local;
-using System.Data.SqlClient;
-using System.Xml;
-using Console_App;
 using SharpCompress.Writers;
 using SharpCompress.Common;
 using SharpCompress.Archives.Tar;
 using SharpCompress.Archives;
-using Newtonsoft.Json.Linq;
 using Microsoft.CodeAnalysis;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using MessagePack;
-using System.Runtime.Serialization.Formatters.Binary;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 using System.Text.Json.Serialization;
-using System.Xml.Serialization;
 using System.Runtime.Serialization;
 
 using var loggerFactory = LoggerFactory.Create(builder =>
@@ -27,7 +19,6 @@ using var loggerFactory = LoggerFactory.Create(builder =>
 });
 
 ILogger logger = loggerFactory.CreateLogger<Program>(); 
-
 
 
 //GetAvailableUpdatesForWindows();
@@ -55,7 +46,6 @@ void GetAvailableUpdatesForWindows()
     // Create a filter to retrieve selected updates by product name
     var updatesFilter = new UpstreamSourceFilter();
 
-    // Set a "windows 11" product filter.
     // First find the "Windows" product
     var windowsProduct = packageStore
         .OfType<ProductCategory>()
@@ -66,8 +56,6 @@ void GetAvailableUpdatesForWindows()
         .First(category => category.Categories.Contains(windowsProduct.Id.ID) &&
         category.Title.Equals("Windows 11"));
     updatesFilter.ProductsFilter.Add(windows11Product.Id.ID);
-
-
 
     // Allow all available update classifications for the product selected
     updatesFilter
@@ -286,7 +274,30 @@ static void DownloadUpdateContent()
 }
 
 
+//Standard serializer - Fejler på ukendte attributter
+static void SaveMetadataToJsonStandard(SoftwareUpdate metadata, string filePath)
+{
+    var options = new JsonSerializerOptions
+    {
+        WriteIndented = true,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+    };
 
+    try
+    {
+        string jsonString = JsonSerializer.Serialize(metadata, options);
+        File.WriteAllText(filePath, jsonString);
+        Console.WriteLine($"Successfully saved metadata to JSON: {filePath}");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Failed to save metadata to JSON: {ex.Message}");
+        throw; // Optionally, handle or rethrow the exception as needed
+    }
+}
+
+
+//Custom serializer - Bruger CustomSoftwareUpdate...
 static void SaveMetadataToJson(SoftwareUpdate metadata, string filePath)
 {
     var options = new JsonSerializerOptions
