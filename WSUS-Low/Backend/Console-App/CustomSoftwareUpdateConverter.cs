@@ -23,7 +23,7 @@ public class CustomSoftwareUpdateConverter : JsonConverter<SoftwareUpdate>
         writer.WriteString("KBArticleId", value.KBArticleId ?? ""); // Ensure KBArticleId is not null
         writer.WriteString("OsUpgrade", value.OsUpgrade ?? "");
         
-
+        
         // Write Files array
         writer.WriteStartArray("Files");
         foreach (var file in value.Files)
